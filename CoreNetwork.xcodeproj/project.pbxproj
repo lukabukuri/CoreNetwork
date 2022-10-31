@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB91B309290A7212009C62C4 /* CoreNetwork+Methods.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91B308290A7212009C62C4 /* CoreNetwork+Methods.swift */; };
+		AB91B30B290A7458009C62C4 /* CoreNetwork+Headers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91B30A290A7458009C62C4 /* CoreNetwork+Headers.swift */; };
+		AB91B30D290A74DB009C62C4 /* Network+Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91B30C290A74DB009C62C4 /* Network+Query.swift */; };
+		AB91B30F290A7504009C62C4 /* CoreNetwork+Body.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91B30E290A7504009C62C4 /* CoreNetwork+Body.swift */; };
+		AB91B313290A8102009C62C4 /* CoreNetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91B312290A8102009C62C4 /* CoreNetworkProtocol.swift */; };
+		AB91B316290A9690009C62C4 /* URLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91B315290A9690009C62C4 /* URLRequest.swift */; };
 		ABAACF3629093042005BC049 /* CoreNetwork.docc in Sources */ = {isa = PBXBuildFile; fileRef = ABAACF3529093042005BC049 /* CoreNetwork.docc */; };
 		ABAACF3C29093042005BC049 /* CoreNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABAACF3129093042005BC049 /* CoreNetwork.framework */; };
 		ABAACF4129093043005BC049 /* CoreNetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAACF4029093043005BC049 /* CoreNetworkTests.swift */; };
@@ -25,6 +31,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AB91B308290A7212009C62C4 /* CoreNetwork+Methods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreNetwork+Methods.swift"; sourceTree = "<group>"; };
+		AB91B30A290A7458009C62C4 /* CoreNetwork+Headers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreNetwork+Headers.swift"; sourceTree = "<group>"; };
+		AB91B30C290A74DB009C62C4 /* Network+Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network+Query.swift"; sourceTree = "<group>"; };
+		AB91B30E290A7504009C62C4 /* CoreNetwork+Body.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreNetwork+Body.swift"; sourceTree = "<group>"; };
+		AB91B312290A8102009C62C4 /* CoreNetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreNetworkProtocol.swift; sourceTree = "<group>"; };
+		AB91B315290A9690009C62C4 /* URLRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequest.swift; sourceTree = "<group>"; };
 		ABAACF3129093042005BC049 /* CoreNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABAACF3429093042005BC049 /* CoreNetwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreNetwork.h; sourceTree = "<group>"; };
 		ABAACF3529093042005BC049 /* CoreNetwork.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = CoreNetwork.docc; sourceTree = "<group>"; };
@@ -52,6 +64,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AB91B314290A9634009C62C4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AB91B315290A9690009C62C4 /* URLRequest.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		ABAACF2729093042005BC049 = {
 			isa = PBXGroup;
 			children = (
@@ -73,9 +93,15 @@
 		ABAACF3329093042005BC049 /* CoreNetwork */ = {
 			isa = PBXGroup;
 			children = (
+				AB91B314290A9634009C62C4 /* Extensions */,
 				ABAACF3429093042005BC049 /* CoreNetwork.h */,
 				ABAACF3529093042005BC049 /* CoreNetwork.docc */,
 				ABAACF4B290938B0005BC049 /* CoreNetwork.swift */,
+				AB91B308290A7212009C62C4 /* CoreNetwork+Methods.swift */,
+				AB91B30A290A7458009C62C4 /* CoreNetwork+Headers.swift */,
+				AB91B30C290A74DB009C62C4 /* Network+Query.swift */,
+				AB91B30E290A7504009C62C4 /* CoreNetwork+Body.swift */,
+				AB91B312290A8102009C62C4 /* CoreNetworkProtocol.swift */,
 			);
 			path = CoreNetwork;
 			sourceTree = "<group>";
@@ -198,7 +224,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				ABAACF3629093042005BC049 /* CoreNetwork.docc in Sources */,
+				AB91B313290A8102009C62C4 /* CoreNetworkProtocol.swift in Sources */,
+				AB91B30D290A74DB009C62C4 /* Network+Query.swift in Sources */,
 				ABAACF4C290938B0005BC049 /* CoreNetwork.swift in Sources */,
+				AB91B30B290A7458009C62C4 /* CoreNetwork+Headers.swift in Sources */,
+				AB91B316290A9690009C62C4 /* URLRequest.swift in Sources */,
+				AB91B309290A7212009C62C4 /* CoreNetwork+Methods.swift in Sources */,
+				AB91B30F290A7504009C62C4 /* CoreNetwork+Body.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
