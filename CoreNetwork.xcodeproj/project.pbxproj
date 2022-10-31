@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8DB14B8C290FF2730098CDC7 /* Network+Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB14B8B290FF2730098CDC7 /* Network+Status.swift */; };
 		AB91B309290A7212009C62C4 /* CoreNetwork+Methods.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91B308290A7212009C62C4 /* CoreNetwork+Methods.swift */; };
 		AB91B30B290A7458009C62C4 /* CoreNetwork+Headers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91B30A290A7458009C62C4 /* CoreNetwork+Headers.swift */; };
 		AB91B30D290A74DB009C62C4 /* Network+Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91B30C290A74DB009C62C4 /* Network+Query.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8DB14B8B290FF2730098CDC7 /* Network+Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network+Status.swift"; sourceTree = "<group>"; };
 		AB91B308290A7212009C62C4 /* CoreNetwork+Methods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreNetwork+Methods.swift"; sourceTree = "<group>"; };
 		AB91B30A290A7458009C62C4 /* CoreNetwork+Headers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreNetwork+Headers.swift"; sourceTree = "<group>"; };
 		AB91B30C290A74DB009C62C4 /* Network+Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network+Query.swift"; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 				ABAACF4B290938B0005BC049 /* CoreNetwork.swift */,
 				AB91B308290A7212009C62C4 /* CoreNetwork+Methods.swift */,
 				AB91B30A290A7458009C62C4 /* CoreNetwork+Headers.swift */,
+				8DB14B8B290FF2730098CDC7 /* Network+Status.swift */,
 				AB91B30C290A74DB009C62C4 /* Network+Query.swift */,
 				AB91B30E290A7504009C62C4 /* CoreNetwork+Body.swift */,
 				AB91B312290A8102009C62C4 /* CoreNetworkProtocol.swift */,
@@ -225,6 +228,7 @@
 			files = (
 				ABAACF3629093042005BC049 /* CoreNetwork.docc in Sources */,
 				AB91B313290A8102009C62C4 /* CoreNetworkProtocol.swift in Sources */,
+				8DB14B8C290FF2730098CDC7 /* Network+Status.swift in Sources */,
 				AB91B30D290A74DB009C62C4 /* Network+Query.swift in Sources */,
 				ABAACF4C290938B0005BC049 /* CoreNetwork.swift in Sources */,
 				AB91B30B290A7458009C62C4 /* CoreNetwork+Headers.swift in Sources */,

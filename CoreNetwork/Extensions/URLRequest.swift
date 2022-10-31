@@ -9,9 +9,7 @@ import Foundation
 
 extension URLRequest {
     
-    public init(url: String, method: CoreNetwork.HTTPMethod, headers: CoreNetwork.Headers? = nil, body: CoreNetwork.Body? = nil) throws {
-        guard let url = URL(string: url) else { throw NetworkError.badURL }
-        
+    public init?(url: URL, method: CoreNetwork.HTTPMethod, headers: CoreNetwork.Headers? = nil, body: CoreNetwork.Body? = nil)  {
         self.init(url: url)
         
         httpMethod = method.rawValue
@@ -22,8 +20,12 @@ extension URLRequest {
             }
         }
         
-        if method != .get, let body {
-            httpBody = try JSONSerialization.data(withJSONObject: body)
+        if let body {
+            do {
+                httpBody = try JSONSerialization.data(withJSONObject: body)
+            } catch {
+                return nil
+            }
         }
     }
 
