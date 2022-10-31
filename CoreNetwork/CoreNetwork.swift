@@ -18,36 +18,45 @@ public class CoreNetwork {
                                                  body: Body = .emptyBody,
                                                  method: HTTPMethod = .get,
                                                  type: T.Type,
-                                                 success: ((T) -> Void)? = nil,
-                                                 fail: (() -> Void)? = nil,
-                                                 unauthorized: (() -> Void)? = nil) {
+                                                 completion: @escaping ((Result<T, Status>) -> Void) = { _ in }) {
         
         
-        let url = generateURL(baseURL: url, path: path, query: query)
-        
-        do {
-            let urlRequest = try URLRequest(url: url, method: method, headers: headers, body: body)
-            URLSession.shared.dataTask(with: urlRequest) { data, response, error in
-                guard let data, error == nil, (response as? HTTPURLResponse)?.statusCode == 200 else {
-                    fail?(); return }
-                do {
-                    let result = try JSONDecoder().decode(T.self, from: data)
-                    DispatchQueue.main.async {
-                        success?(result)
-                    }
-                } catch {
-                    print(error.localizedDescription)
-                    DispatchQueue.main.async {
-                        fail?()
-                    }
-                }
-            }.resume()
-        } catch {
-            print(error.localizedDescription)
+        guard let url = generateURL(baseURL: url, path: path, query: query) else {
+            completion(.failure(.incorrectURL))
+            return
         }
+        
+        guard let urlRequest = URLRequest(url: url, method: method, headers: headers, body: body) else {
+            completion(.failure(.encodingError))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
+            guard error == nil,
+                  let data,
+                  (200..<300).contains(statusCode) else {
+                DispatchQueue.main.async {
+                    completion(.failure(.networkError(statusCode: statusCode)))
+                }
+                return
+            }
+            
+            do {
+                let result = try JSONDecoder().decode(T.self, from: data)
+                DispatchQueue.main.async {
+                    completion(.success(result))
+                }
+            } catch {
+                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    completion(.failure(.decodingError))
+                }
+            }
+        }.resume()
     }
     
-    private static func generateURL(baseURL: String, path: String, query: Query) -> String {
+    private static func generateURL(baseURL: String, path: String, query: Query) -> URL? {
         var path = path
         if !query.isEmpty {
             path += "?\(query.map { "\($0.key)=\($0.value)" }.joined(separator: "&"))"
@@ -57,7 +66,7 @@ public class CoreNetwork {
             path = encoded
         }
         
-        return baseURL + path
+        return URL(string: baseURL + path)
         
     }
 }
