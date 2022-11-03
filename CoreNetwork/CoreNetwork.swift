@@ -9,16 +9,14 @@ import Foundation
 
 public class CoreNetwork {
     
-    public static weak var delegate: CoreNetworkProtocol?
-    
-    public static func jsonRequest<T: Decodable>(endpoint: Endpoint,
-                                                 type: T.Type,
-                                                 completion: @escaping ((Result<T, Status>) -> Void) = { _ in }) {
+    public class func request<T: Decodable>(endpoint: Endpoint,
+                                            type: T.Type,
+                                            completion: @escaping ((Result<T, Status>) -> Void) = { _ in }) {
         var urlRequest: URLRequest?
         
         do {
             urlRequest = try URLRequest(from: endpoint)
-        } catch let error {
+        } catch {
             if let error = error as? Status {
                 completion(.failure(error))
                 return
@@ -36,15 +34,11 @@ public class CoreNetwork {
                 }
                 return
             }
-            
-            do {
-                let result = try JSONDecoder().decode(T.self, from: data)
-                DispatchQueue.main.async {
-                    completion(.success(result))
-                }
-            } catch {
-                print(error.localizedDescription)
-                DispatchQueue.main.async {
+             
+            DispatchQueue.main.async {
+                if let data = DTODecoder().decode(type: type, data: data) {
+                    completion(.success(data))
+                } else {
                     completion(.failure(.decodingError))
                 }
             }
