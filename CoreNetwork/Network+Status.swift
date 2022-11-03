@@ -10,7 +10,7 @@ import Foundation
 public extension CoreNetwork {
     enum Status: Error {
         case networkError(statusCode: Int)
-        case incorrectURL
+        case badURL
         case encodingError
         case decodingError
     }

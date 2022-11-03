@@ -30,9 +30,3 @@ extension URLRequest {
     }
 
 }
-
-public enum NetworkError: String, Error {
-    case badURL
-    case couldNotDecode
-    case unknown
-}

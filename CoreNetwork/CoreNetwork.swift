@@ -19,10 +19,8 @@ public class CoreNetwork {
                                                  method: HTTPMethod = .get,
                                                  type: T.Type,
                                                  completion: @escaping ((Result<T, Status>) -> Void) = { _ in }) {
-        
-        
         guard let url = generateURL(baseURL: url, path: path, query: query) else {
-            completion(.failure(.incorrectURL))
+            completion(.failure(.badURL))
             return
         }
         
@@ -33,9 +31,8 @@ public class CoreNetwork {
         
         URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
-            guard error == nil,
-                  let data,
-                  (200..<300).contains(statusCode) else {
+            
+            guard error == nil, let data, (200..<300).contains(statusCode) else {
                 DispatchQueue.main.async {
                     completion(.failure(.networkError(statusCode: statusCode)))
                 }
