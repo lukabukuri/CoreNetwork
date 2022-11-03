@@ -21,6 +21,7 @@ extension URLRequest {
         
         self.init(url: url)
         
+        set(method: endpoint.method)
         set(headers: endpoint.headers)
         try set(body: endpoint.body)
     }
@@ -46,5 +47,11 @@ extension URLRequest {
             }
         }
     }
+    
+    /// Set HTTP method to request
+    public mutating func set(method: CoreNetwork.HTTPMethod) {
+        httpMethod = method.rawValue
+    }
+    
 
 }
