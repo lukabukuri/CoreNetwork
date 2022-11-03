@@ -13,5 +13,6 @@ public extension CoreNetwork {
         case badURL
         case encodingError
         case decodingError
+        case unknown
     }
 }

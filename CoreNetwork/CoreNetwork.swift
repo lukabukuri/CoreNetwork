@@ -11,23 +11,21 @@ public class CoreNetwork {
     
     public static weak var delegate: CoreNetworkProtocol?
     
-    public static func jsonRequest<T: Decodable>(url: String = delegate?.baseURL ?? "",
-                                                 path: String,
-                                                 headers: Headers = delegate?.headers ?? .emptyHeaders,
-                                                 query: Query = .emptyQuery,
-                                                 body: Body = .emptyBody,
-                                                 method: HTTPMethod = .get,
+    public static func jsonRequest<T: Decodable>(endpoint: Endpoint,
                                                  type: T.Type,
                                                  completion: @escaping ((Result<T, Status>) -> Void) = { _ in }) {
-        guard let url = generateURL(baseURL: url, path: path, query: query) else {
-            completion(.failure(.badURL))
-            return
+        var urlRequest: URLRequest?
+        
+        do {
+            urlRequest = try URLRequest(from: endpoint)
+        } catch let error {
+            if let error = error as? Status {
+                completion(.failure(error))
+                return
+            }
         }
         
-        guard let urlRequest = URLRequest(url: url, method: method, headers: headers, body: body) else {
-            completion(.failure(.encodingError))
-            return
-        }
+        guard let urlRequest else { completion(.failure(.unknown)) ; return }
         
         URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
@@ -51,19 +49,5 @@ public class CoreNetwork {
                 }
             }
         }.resume()
-    }
-    
-    private static func generateURL(baseURL: String, path: String, query: Query) -> URL? {
-        var path = path
-        if !query.isEmpty {
-            path += "?\(query.map { "\($0.key)=\($0.value)" }.joined(separator: "&"))"
-        }
-        let allowedCharacterSet = CharacterSet.urlHostAllowed.union(.urlPathAllowed).union(.urlQueryAllowed)
-        if let encoded = path.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) {
-            path = encoded
-        }
-        
-        return URL(string: baseURL + path)
-        
     }
 }

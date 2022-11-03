@@ -18,3 +18,12 @@ public extension CoreNetwork.Query {
     static var emptyQuery: CoreNetwork.Query { return [:] }
     
 }
+
+public extension CoreNetwork.Query {
+    
+    /// Creates URLQueryItem array from dictionary
+    func urlQueryItems() -> [URLQueryItem] {
+        map({ URLQueryItem(name: $0.key, value: $0.value) })
+    }
+    
+}
