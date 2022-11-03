@@ -14,9 +14,7 @@ extension URLRequest {
     /// - Parameters:
     ///    - endpoint: Endpoint model for the request
     ///
-    /// - Throws:
-    ///     - badURL if URL can't be constructed using
-    ///
+    /// - Throws: badURL if URL can't be constructed using
     public init?(from endpoint: CoreNetwork.Endpoint) throws {
         var urlComponents = endpoint.urlComponents()
         guard let url = urlComponents.url else { throw CoreNetwork.Status.badURL }
@@ -38,8 +36,7 @@ extension URLRequest {
     
     /// Set HTTP body if exists
     ///
-    /// - Throws:
-    ///     - encodingError if JSON data can't be serialized from given object
+    /// - Throws: encodingError if JSON data can't be serialized from given object
     public mutating func set(body: CoreNetwork.Body) throws {
         if !body.isEmpty {
             do {

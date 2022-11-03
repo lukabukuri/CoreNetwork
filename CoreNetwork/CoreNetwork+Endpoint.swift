@@ -59,10 +59,12 @@ public extension CoreNetwork.Endpoint {
         ///
         /// - String value: "https"
         case https
+        
         /// HTTP
         ///
         /// - String value: "http"
         case http
+        
         /// Custom scheme
         ///
         /// - String value returns the string given in the associated parameter
@@ -85,7 +87,7 @@ public extension CoreNetwork.Endpoint {
         
         /// Default scheme
         ///
-        /// - Set to https
+        /// - Set to https by default
         static let defaultScheme: Self = .https
     }
     
