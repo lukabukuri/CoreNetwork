@@ -16,28 +16,24 @@ extension URLRequest {
     ///
     /// - Throws: badURL if URL can't be constructed using
     public init?(from endpoint: CoreNetwork.Endpoint) throws {
-        var urlComponents = endpoint.urlComponents()
+        let urlComponents = endpoint.urlComponents()
         guard let url = urlComponents.url else { throw CoreNetwork.Status.badURL }
         
         self.init(url: url)
         
-        set(headers: endpoint.headers)
-        try set(body: endpoint.body)
+        try setParameters(headers: endpoint.headers, body: endpoint.body, method: endpoint.method)
     }
     
-    /// Set HTTP headers from given endpoint
-    ///
-    /// - Note: Will replace values if any of the given header fields already exist
-    public mutating func set(headers: CoreNetwork.Headers) {
+    private mutating func setParameters(headers: CoreNetwork.Headers,
+                                        body: CoreNetwork.Body,
+                                        method: CoreNetwork.HTTPMethod) throws {
+        
+        httpMethod = method.rawValue
+        
         for (headerField, headerValue) in headers {
             setValue(headerValue, forHTTPHeaderField: headerField)
         }
-    }
-    
-    /// Set HTTP body if exists
-    ///
-    /// - Throws: encodingError if JSON data can't be serialized from given object
-    public mutating func set(body: CoreNetwork.Body) throws {
+        
         if !body.isEmpty {
             do {
                 httpBody = try JSONSerialization.data(withJSONObject: body)
@@ -46,5 +42,4 @@ extension URLRequest {
             }
         }
     }
-
 }

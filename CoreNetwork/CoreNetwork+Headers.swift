@@ -18,6 +18,4 @@ public extension CoreNetwork.Headers {
     
     static var emptyHeaders: CoreNetwork.Headers { return [:] }
     
-    static var defaultHeaders: CoreNetwork.Headers = [:]
-    
 }

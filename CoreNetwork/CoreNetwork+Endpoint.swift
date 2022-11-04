@@ -41,7 +41,7 @@ public extension CoreNetwork {
         /// Headers
         ///
         /// - A dictionary containing the HTTP header fields for a request
-        var headers: Headers = .defaultHeaders
+        var headers: Headers = .emptyHeaders
         
         /// Body
         ///
