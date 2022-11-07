@@ -13,8 +13,6 @@ public extension CoreNetwork {
     class Connectivity {
         
         /// Connectivity status callbacks
-        typealias Connected = () -> Void
-        typealias Disconnected = () -> Void
         typealias ConnectivityChanged = (Status) -> Void
         
         // MARK: - Public Properties
@@ -53,13 +51,7 @@ public extension CoreNetwork {
             return ret
         }
         
-        /// Callback fired when conneced
-        var didConnect: Connected?
-        
-        /// Callback fired when disconnected
-        var didDisconnect: Disconnected?
-        
-        /// Callback fired when connectivity status changed regardless the status itself
+        /// Callback fired when connectivity status changes
         var didChange: ConnectivityChanged?
         
         // MARK: - Private Properties
@@ -69,9 +61,6 @@ public extension CoreNetwork {
         
         /// Time interval for polling in seconds
         private var pollingInterval: TimeInterval
-        
-        /// Polling disabled by default, use `setPolling(enabled: Bool)` to enable/disable
-        private var isPollingEnabled = false
         
         /// Last status determined
         private var lastStatus: Status = .connected
@@ -87,24 +76,19 @@ public extension CoreNetwork {
         
         // MARK: - Public Methods
         
-        /// Enables/disables polling
-        ///
-        /// - Parameter enabled: Determines whether to enable or disable polling
-        func setPolling(enabled: Bool) {
-            self.isPollingEnabled = enabled
-        }
-        
         /// Schedules timer for polling
         func startPolling() {
             self.timer?.invalidate()
             
-            guard self.isPollingEnabled else { return }
-            
-            self.timer = .scheduledTimer(withTimeInterval: self.pollingInterval,
-                                         repeats: true,
-                                         block: { [weak self] timer in
+            self.timer = Timer(timeInterval: self.pollingInterval,
+                               repeats: true,
+                               block: { [weak self] timer in
                 self?.notifyStatus()
             })
+            
+            if let timer {
+                RunLoop.current.add(timer, forMode: .common)
+            }
         }
         
         /// Invalidates timer for polling
@@ -122,13 +106,6 @@ public extension CoreNetwork {
             guard currentStatus != self.lastStatus else { return }
             
             self.lastStatus = currentStatus
-            
-            switch currentStatus {
-            case .connected:
-                self.didConnect?()
-            case .disconnected:
-                self.didDisconnect?()
-            }
             
             self.didChange?(currentStatus)
         }
