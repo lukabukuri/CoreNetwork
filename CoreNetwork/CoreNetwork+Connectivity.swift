@@ -5,14 +5,14 @@
 //  Created by Mishka Chargazia on 04.11.22.
 //
 
-import Foundation
+import UIKit
 import SystemConfiguration
 
 public extension CoreNetwork {
     
     class Connectivity {
         
-        /// Connectivity status callbacks
+        /// Connectivity status callback
         typealias ConnectivityChanged = (Status) -> Void
         
         // MARK: - Public Properties
@@ -65,6 +65,12 @@ public extension CoreNetwork {
         /// Last status determined
         private var lastStatus: Status = .connected
         
+        /// Determines whether polling is enabled, set value using `setPolling(enabled: )`
+        private(set) var isPollingEnabled = false
+        
+        /// Determines whether polling has been started or not
+        private(set) var pollingStarted = false
+        
         // MARK: - Lifecycle
         
         /// Creates an instance with specified  `pollingInterval`
@@ -74,33 +80,43 @@ public extension CoreNetwork {
             self.pollingInterval = pollingInterval
         }
         
+        /// Deinit
+        deinit {
+            self.timer?.invalidate()
+            NotificationCenter.default.removeObserver(self)
+        }
+        
         // MARK: - Public Methods
         
         /// Schedules timer for polling
         func startPolling() {
-            self.timer?.invalidate()
+            guard self.isPollingEnabled else { return }
             
-            self.timer = Timer(timeInterval: self.pollingInterval,
-                               repeats: true,
-                               block: { [weak self] timer in
-                self?.notifyStatus()
-            })
+            self.activateTimer()
             
-            if let timer {
-                RunLoop.current.add(timer, forMode: .common)
-            }
+            NotificationCenter.default.removeObserver(self)
+            NotificationCenter.default.addObserver(self, selector: #selector(resumePolling), name: UIApplication.willEnterForegroundNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(pausePolling), name: UIApplication.didEnterBackgroundNotification, object: nil)
         }
         
         /// Invalidates timer for polling
         func stopPolling() {
+            self.pollingStarted = false
             self.timer?.invalidate()
+        }
+        
+        /// Sets polling enabled/disabled
+        ///
+        ///- Parameter enabled: Determines whether polling should be enabled or disabled
+        func setPolling(enabled: Bool) {
+            self.isPollingEnabled = enabled
         }
         
         // MARK: - Private Methods
         
         /// Calls relevant callback with current status
         ///
-        /// Callbacks are fired only when current connection status is different from `lastStatus` property
+        /// Callback is fired only when current connection status is different from `lastStatus` property
         private func notifyStatus() {
             let currentStatus = checkConnection()
             guard currentStatus != self.lastStatus else { return }
@@ -113,6 +129,34 @@ public extension CoreNetwork {
         /// Returns current connection status
         private func checkConnection() -> Status {
             return Self.isConnectedToNetwork ? .connected : .disconnected
+        }
+        
+        /// Resume polling
+        @objc private func resumePolling() {
+            guard self.isPollingEnabled, !self.pollingStarted else { return }
+            
+            self.activateTimer()
+        }
+        
+        /// Stop polling
+        @objc private func pausePolling() {
+            self.pollingStarted = false
+            self.timer?.invalidate()
+        }
+        
+        /// Activates timer using given polling interval
+        private func activateTimer() {
+            self.timer?.invalidate()
+            
+            self.timer = Timer(timeInterval: self.pollingInterval,
+                               repeats: true,
+                               block: { [weak self] timer in
+                self?.notifyStatus()
+            })
+            
+            if let timer {
+                RunLoop.current.add(timer, forMode: .common)
+            }
         }
         
     }
