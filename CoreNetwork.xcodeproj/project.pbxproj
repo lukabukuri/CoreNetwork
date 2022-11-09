@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D2A33D0291BB3A300E3A1E4 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2A33CF291BB3A300E3A1E4 /* String+Extensions.swift */; };
 		8DB14B8C290FF2730098CDC7 /* Network+Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB14B8B290FF2730098CDC7 /* Network+Status.swift */; };
 		8DB14B902913AFBF0098CDC7 /* CoreNetwork+Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB14B8F2913AFBF0098CDC7 /* CoreNetwork+Endpoint.swift */; };
 		8DDF56F029151B1300D430EC /* CoreNetwork+Connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDF56EF29151B1300D430EC /* CoreNetwork+Connectivity.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8D2A33CF291BB3A300E3A1E4 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		8DB14B8B290FF2730098CDC7 /* Network+Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network+Status.swift"; sourceTree = "<group>"; };
 		8DB14B8F2913AFBF0098CDC7 /* CoreNetwork+Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreNetwork+Endpoint.swift"; sourceTree = "<group>"; };
 		8DDF56EF29151B1300D430EC /* CoreNetwork+Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreNetwork+Connectivity.swift"; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				AB91B315290A9690009C62C4 /* URLRequest.swift */,
+				8D2A33CF291BB3A300E3A1E4 /* String+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				8DB14B902913AFBF0098CDC7 /* CoreNetwork+Endpoint.swift in Sources */,
 				ABAACF3629093042005BC049 /* CoreNetwork.docc in Sources */,
 				8DB14B8C290FF2730098CDC7 /* Network+Status.swift in Sources */,
+				8D2A33D0291BB3A300E3A1E4 /* String+Extensions.swift in Sources */,
 				AB91B30D290A74DB009C62C4 /* Network+Query.swift in Sources */,
 				ABAACF4C290938B0005BC049 /* CoreNetwork.swift in Sources */,
 				AB91B30B290A7458009C62C4 /* CoreNetwork+Headers.swift in Sources */,
