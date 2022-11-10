@@ -1,5 +1,5 @@
 //
-//  Network+Query.swift
+//  CoreNetwork+Query.swift
 //  CoreNetwork
 //
 //  Created by Luka Bukuri on 27.10.22.

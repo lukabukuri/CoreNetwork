@@ -1,5 +1,5 @@
 //
-//  Network+Status.swift
+//  CoreNetwork+Status.swift
 //  CoreNetwork
 //
 //  Created by Mishka Chargazia on 31.10.22.
@@ -13,6 +13,6 @@ public extension CoreNetwork {
         case badURL
         case encodingError
         case decodingError
-        case unknown
+        case couldNotMakeURLRequest
     }
 }
