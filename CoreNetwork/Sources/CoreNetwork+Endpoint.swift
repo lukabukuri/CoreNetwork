@@ -99,9 +99,9 @@ public extension CoreNetwork.Endpoint {
     func urlComponents() -> URLComponents {
         var urlComponents = URLComponents()
         urlComponents.scheme = scheme.value
-        urlComponents.path = path
+        urlComponents.path = path.normalizedURLPath()
         urlComponents.host = host
-        urlComponents.queryItems = query.urlQueryItems()
+        urlComponents.queryItems = query.isEmpty ? nil : query.urlQueryItems()
         
         return urlComponents
     }
