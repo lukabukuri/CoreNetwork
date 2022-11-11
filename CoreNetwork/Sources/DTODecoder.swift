@@ -24,3 +24,5 @@ struct DTODecoder {
     }
     
 }
+
+public struct EmptyData: Decodable { }
