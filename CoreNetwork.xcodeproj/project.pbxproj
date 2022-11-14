@@ -22,6 +22,7 @@
 		ABAACF4129093043005BC049 /* CoreNetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAACF4029093043005BC049 /* CoreNetworkTests.swift */; };
 		ABAACF4229093043005BC049 /* CoreNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAACF3429093042005BC049 /* CoreNetwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ABAACF4C290938B0005BC049 /* CoreNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAACF4B290938B0005BC049 /* CoreNetwork.swift */; };
+		ABB69468292190D9008C7322 /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB69467292190D9008C7322 /* MockURLProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		ABAACF3B29093042005BC049 /* CoreNetworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreNetworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABAACF4029093043005BC049 /* CoreNetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreNetworkTests.swift; sourceTree = "<group>"; };
 		ABAACF4B290938B0005BC049 /* CoreNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreNetwork.swift; sourceTree = "<group>"; };
+		ABB69467292190D9008C7322 /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 				AB91B30E290A7504009C62C4 /* CoreNetwork+Body.swift */,
 				AB5C6A10291E47A300EF80A0 /* CoreNetwork+Connectivity.swift */,
 				AB46737329141A4100415E06 /* DTODecoder.swift */,
+				ABB69467292190D9008C7322 /* MockURLProtocol.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				8DB14B8C290FF2730098CDC7 /* CoreNetwork+Status.swift in Sources */,
 				AB91B30D290A74DB009C62C4 /* CoreNetwork+Query.swift in Sources */,
 				8D2A33D0291BB3A300E3A1E4 /* String+Extensions.swift in Sources */,
+				ABB69468292190D9008C7322 /* MockURLProtocol.swift in Sources */,
 				ABAACF4C290938B0005BC049 /* CoreNetwork.swift in Sources */,
 				AB91B30B290A7458009C62C4 /* CoreNetwork+Headers.swift in Sources */,
 				AB91B316290A9690009C62C4 /* URLRequest+Extensions.swift in Sources */,
@@ -410,11 +414,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACH_O_TYPE = staticlib;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ge.tbc.CoreNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -438,11 +444,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACH_O_TYPE = staticlib;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ge.tbc.CoreNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";

@@ -15,7 +15,7 @@ extension URLRequest {
     ///    - endpoint: Endpoint model for the request
     ///
     /// - Throws: badURL if URL can't be constructed using
-    public init?(from endpoint: CoreNetwork.Endpoint) throws {
+    public init(from endpoint: CoreNetwork.Endpoint) throws {
         let urlComponents = endpoint.urlComponents()
         guard let url = urlComponents.url else { throw CoreNetwork.Status.badURL }
         
