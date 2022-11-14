@@ -14,12 +14,14 @@ public class CoreNetwork {
     init(urlSessionConfiguration: URLSessionConfiguration) {
         self.urlSession = URLSession(configuration: urlSessionConfiguration)
     }
-
+    
+    init(urlSession: URLSession) {
+        self.urlSession = urlSession
+    }
     
     func request<T: Decodable>(endpoint: Endpoint, type: T.Type = EmptyData.self) async throws -> T {
         
-        guard let urlRequest = try? URLRequest(from: endpoint) else { throw CoreNetwork.Status.couldNotMakeURLRequest}
-        
+        let urlRequest = try URLRequest(from: endpoint)
         let (data, response) = try await urlSession.data(for: urlRequest)
         let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
         
