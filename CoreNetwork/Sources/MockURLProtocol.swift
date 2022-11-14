@@ -3,6 +3,7 @@
 //  CoreNetwork
 //
 //  Created by Luka Bukuri on 14.11.22.
+//  Copyright © 2022 JSC TBC Bank. All rights reserved.
 //
 
 import Foundation

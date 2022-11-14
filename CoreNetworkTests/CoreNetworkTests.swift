@@ -3,6 +3,7 @@
 //  CoreNetworkTests
 //
 //  Created by Luka Bukuri on 26.10.22.
+//  Copyright © 2022 JSC TBC Bank. All rights reserved.
 //
 
 import XCTest
