@@ -8,19 +8,24 @@
 
 import Foundation
 
-public class CoreNetwork {
+open class CoreNetwork {
     
-    private var urlSession: URLSession
+    private let urlSession: URLSession
+    public var delegate: SessionDelegate
     
-    init(urlSessionConfiguration: URLSessionConfiguration) {
-        self.urlSession = URLSession(configuration: urlSessionConfiguration)
-    }
+    public init(
+        configuration: URLSessionConfiguration,
+        delegate: SessionDelegate = SessionDelegate()) {
+            
+            self.delegate = delegate
+            self.urlSession = URLSession(
+                configuration: configuration,
+                delegate: delegate,
+                delegateQueue: nil)
+        }
     
-    init(urlSession: URLSession) {
-        self.urlSession = urlSession
-    }
     
-    func request<T: Decodable>(endpoint: Endpoint, type: T.Type = EmptyData.self) async throws -> T {
+    open func request<T: Decodable>(endpoint: Endpoint, type: T.Type = EmptyData.self) async throws -> T {
         
         let urlRequest = try URLRequest(from: endpoint)
         let (data, response) = try await urlSession.data(for: urlRequest)
@@ -34,15 +39,14 @@ public class CoreNetwork {
     }
     
     @available(*, deprecated, message: "Use async/await request instead")
-    class func request<T: Decodable>(endpoint: Endpoint,
-                                     type: T.Type = EmptyData.self,
-                                     urlSessionConfiguration: URLSessionConfiguration = .default,
-                                     completion: @escaping ((Result<T, Status>) -> Void) = { _ in }) {
+    open func request<T: Decodable>(endpoint: Endpoint,
+                                    type: T.Type = EmptyData.self,
+                                    completion: @escaping ((Result<T, Status>) -> Void) = { _ in }) {
         
         guard let urlRequest = try? URLRequest(from: endpoint) else {
             return completion(.failure(.couldNotMakeURLRequest)) }
         
-        URLSession(configuration: urlSessionConfiguration).dataTask(with: urlRequest) { data, response, error in
+        urlSession.dataTask(with: urlRequest) { data, response, error in
             let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
             
             guard error == nil, let data, (200..<300).contains(statusCode) else {

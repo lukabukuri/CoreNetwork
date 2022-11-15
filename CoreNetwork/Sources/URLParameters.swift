@@ -11,8 +11,8 @@ import Foundation
 public extension CoreNetwork {
     
     typealias Headers = [String : String]
-    typealias Query = [String: String]
-    typealias Body = [String: Any]
+    typealias Query = [String : String]
+    typealias Body = [String : Any]
     
 }
 

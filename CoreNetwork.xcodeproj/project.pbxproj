@@ -13,6 +13,7 @@
 		AB46737429141A4100415E06 /* DTODecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB46737329141A4100415E06 /* DTODecoder.swift */; };
 		AB5C6A11291E47A300EF80A0 /* Connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5C6A10291E47A300EF80A0 /* Connectivity.swift */; };
 		AB8E51CF2922B984005A4079 /* URLParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8E51CE2922B984005A4079 /* URLParameters.swift */; };
+		AB8E51D12922C5CD005A4079 /* SessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8E51D02922C5CD005A4079 /* SessionDelegate.swift */; };
 		AB91B309290A7212009C62C4 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91B308290A7212009C62C4 /* HTTPMethod.swift */; };
 		AB91B316290A9690009C62C4 /* URLRequest+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91B315290A9690009C62C4 /* URLRequest+Extensions.swift */; };
 		ABAACF3629093042005BC049 /* CoreNetwork.docc in Sources */ = {isa = PBXBuildFile; fileRef = ABAACF3529093042005BC049 /* CoreNetwork.docc */; };
@@ -40,6 +41,7 @@
 		AB46737329141A4100415E06 /* DTODecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTODecoder.swift; sourceTree = "<group>"; };
 		AB5C6A10291E47A300EF80A0 /* Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connectivity.swift; sourceTree = "<group>"; };
 		AB8E51CE2922B984005A4079 /* URLParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLParameters.swift; sourceTree = "<group>"; };
+		AB8E51D02922C5CD005A4079 /* SessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDelegate.swift; sourceTree = "<group>"; };
 		AB91B308290A7212009C62C4 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		AB91B315290A9690009C62C4 /* URLRequest+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extensions.swift"; sourceTree = "<group>"; };
 		ABAACF3129093042005BC049 /* CoreNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +77,7 @@
 			children = (
 				AB91B314290A9634009C62C4 /* Extensions */,
 				ABAACF4B290938B0005BC049 /* CoreNetwork.swift */,
+				AB8E51D02922C5CD005A4079 /* SessionDelegate.swift */,
 				AB8E51CE2922B984005A4079 /* URLParameters.swift */,
 				AB91B308290A7212009C62C4 /* HTTPMethod.swift */,
 				8DB14B8F2913AFBF0098CDC7 /* Endpoint.swift */,
@@ -244,6 +247,7 @@
 				AB46737429141A4100415E06 /* DTODecoder.swift in Sources */,
 				AB8E51CF2922B984005A4079 /* URLParameters.swift in Sources */,
 				8DB14B902913AFBF0098CDC7 /* Endpoint.swift in Sources */,
+				AB8E51D12922C5CD005A4079 /* SessionDelegate.swift in Sources */,
 				AB5C6A11291E47A300EF80A0 /* Connectivity.swift in Sources */,
 				ABAACF3629093042005BC049 /* CoreNetwork.docc in Sources */,
 				8DB14B8C290FF2730098CDC7 /* Status.swift in Sources */,

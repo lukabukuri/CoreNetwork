@@ -8,9 +8,9 @@
 
 import Foundation
 
-extension CoreNetwork {
+public extension CoreNetwork {
     
-    public enum HTTPMethod: String {
+     enum HTTPMethod: String {
         case options = "OPTIONS"
         case get     = "GET"
         case head    = "HEAD"

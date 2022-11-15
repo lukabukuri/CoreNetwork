@@ -8,22 +8,22 @@
 
 import Foundation
 
-final class MockURLProtocol: URLProtocol {
+final public class MockURLProtocol: URLProtocol {
     
     /// Handler to test the request and return mock response.
-    static var requestHandler: ((URLRequest) throws -> (HTTPURLResponse, Data?))?
+    public static var requestHandler: ((URLRequest) throws -> (HTTPURLResponse, Data?))?
     
-    override class func canInit(with request: URLRequest) -> Bool {
+    public override class func canInit(with request: URLRequest) -> Bool {
         // To check if this protocol can handle the given request.
         return true
     }
     
-    override class func canonicalRequest(for request: URLRequest) -> URLRequest {
+    public override class func canonicalRequest(for request: URLRequest) -> URLRequest {
         // Here you return the canonical version of the request but most of the time you pass the orignal one.
         return request
     }
     
-    override func startLoading() {
+    public override func startLoading() {
         guard let handler = MockURLProtocol.requestHandler else {
             fatalError("Handler is unavailable.")
         }
@@ -48,7 +48,7 @@ final class MockURLProtocol: URLProtocol {
         }
     }
     
-    override func stopLoading() {
+    public override func stopLoading() {
         // This is called if the request gets canceled or completed.
     }
     
