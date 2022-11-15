@@ -3,19 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		8D2A33D0291BB3A300E3A1E4 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2A33CF291BB3A300E3A1E4 /* String+Extensions.swift */; };
-		8DB14B8C290FF2730098CDC7 /* CoreNetwork+Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB14B8B290FF2730098CDC7 /* CoreNetwork+Status.swift */; };
-		8DB14B902913AFBF0098CDC7 /* CoreNetwork+Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB14B8F2913AFBF0098CDC7 /* CoreNetwork+Endpoint.swift */; };
+		8DB14B8C290FF2730098CDC7 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB14B8B290FF2730098CDC7 /* Status.swift */; };
+		8DB14B902913AFBF0098CDC7 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB14B8F2913AFBF0098CDC7 /* Endpoint.swift */; };
 		AB46737429141A4100415E06 /* DTODecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB46737329141A4100415E06 /* DTODecoder.swift */; };
-		AB5C6A11291E47A300EF80A0 /* CoreNetwork+Connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5C6A10291E47A300EF80A0 /* CoreNetwork+Connectivity.swift */; };
-		AB91B309290A7212009C62C4 /* CoreNetwork+Methods.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91B308290A7212009C62C4 /* CoreNetwork+Methods.swift */; };
-		AB91B30B290A7458009C62C4 /* CoreNetwork+Headers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91B30A290A7458009C62C4 /* CoreNetwork+Headers.swift */; };
-		AB91B30D290A74DB009C62C4 /* CoreNetwork+Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91B30C290A74DB009C62C4 /* CoreNetwork+Query.swift */; };
-		AB91B30F290A7504009C62C4 /* CoreNetwork+Body.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91B30E290A7504009C62C4 /* CoreNetwork+Body.swift */; };
+		AB5C6A11291E47A300EF80A0 /* Connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5C6A10291E47A300EF80A0 /* Connectivity.swift */; };
+		AB8E51CF2922B984005A4079 /* URLParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8E51CE2922B984005A4079 /* URLParameters.swift */; };
+		AB8E51D12922C5CD005A4079 /* SessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8E51D02922C5CD005A4079 /* SessionDelegate.swift */; };
+		AB91B309290A7212009C62C4 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91B308290A7212009C62C4 /* HTTPMethod.swift */; };
 		AB91B316290A9690009C62C4 /* URLRequest+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB91B315290A9690009C62C4 /* URLRequest+Extensions.swift */; };
 		ABAACF3629093042005BC049 /* CoreNetwork.docc in Sources */ = {isa = PBXBuildFile; fileRef = ABAACF3529093042005BC049 /* CoreNetwork.docc */; };
 		ABAACF3C29093042005BC049 /* CoreNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABAACF3129093042005BC049 /* CoreNetwork.framework */; };
@@ -37,14 +36,13 @@
 
 /* Begin PBXFileReference section */
 		8D2A33CF291BB3A300E3A1E4 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
-		8DB14B8B290FF2730098CDC7 /* CoreNetwork+Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreNetwork+Status.swift"; sourceTree = "<group>"; };
-		8DB14B8F2913AFBF0098CDC7 /* CoreNetwork+Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreNetwork+Endpoint.swift"; sourceTree = "<group>"; };
+		8DB14B8B290FF2730098CDC7 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		8DB14B8F2913AFBF0098CDC7 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		AB46737329141A4100415E06 /* DTODecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTODecoder.swift; sourceTree = "<group>"; };
-		AB5C6A10291E47A300EF80A0 /* CoreNetwork+Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreNetwork+Connectivity.swift"; sourceTree = "<group>"; };
-		AB91B308290A7212009C62C4 /* CoreNetwork+Methods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreNetwork+Methods.swift"; sourceTree = "<group>"; };
-		AB91B30A290A7458009C62C4 /* CoreNetwork+Headers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreNetwork+Headers.swift"; sourceTree = "<group>"; };
-		AB91B30C290A74DB009C62C4 /* CoreNetwork+Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreNetwork+Query.swift"; sourceTree = "<group>"; };
-		AB91B30E290A7504009C62C4 /* CoreNetwork+Body.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreNetwork+Body.swift"; sourceTree = "<group>"; };
+		AB5C6A10291E47A300EF80A0 /* Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connectivity.swift; sourceTree = "<group>"; };
+		AB8E51CE2922B984005A4079 /* URLParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLParameters.swift; sourceTree = "<group>"; };
+		AB8E51D02922C5CD005A4079 /* SessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDelegate.swift; sourceTree = "<group>"; };
+		AB91B308290A7212009C62C4 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		AB91B315290A9690009C62C4 /* URLRequest+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extensions.swift"; sourceTree = "<group>"; };
 		ABAACF3129093042005BC049 /* CoreNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABAACF3429093042005BC049 /* CoreNetwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreNetwork.h; sourceTree = "<group>"; };
@@ -79,13 +77,12 @@
 			children = (
 				AB91B314290A9634009C62C4 /* Extensions */,
 				ABAACF4B290938B0005BC049 /* CoreNetwork.swift */,
-				AB91B308290A7212009C62C4 /* CoreNetwork+Methods.swift */,
-				AB91B30A290A7458009C62C4 /* CoreNetwork+Headers.swift */,
-				8DB14B8F2913AFBF0098CDC7 /* CoreNetwork+Endpoint.swift */,
-				8DB14B8B290FF2730098CDC7 /* CoreNetwork+Status.swift */,
-				AB91B30C290A74DB009C62C4 /* CoreNetwork+Query.swift */,
-				AB91B30E290A7504009C62C4 /* CoreNetwork+Body.swift */,
-				AB5C6A10291E47A300EF80A0 /* CoreNetwork+Connectivity.swift */,
+				AB8E51D02922C5CD005A4079 /* SessionDelegate.swift */,
+				AB8E51CE2922B984005A4079 /* URLParameters.swift */,
+				AB91B308290A7212009C62C4 /* HTTPMethod.swift */,
+				8DB14B8F2913AFBF0098CDC7 /* Endpoint.swift */,
+				8DB14B8B290FF2730098CDC7 /* Status.swift */,
+				AB5C6A10291E47A300EF80A0 /* Connectivity.swift */,
 				AB46737329141A4100415E06 /* DTODecoder.swift */,
 				ABB69467292190D9008C7322 /* MockURLProtocol.swift */,
 			);
@@ -196,6 +193,7 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1400;
+				ORGANIZATIONNAME = "JSC TBC Bank";
 				TargetAttributes = {
 					ABAACF3029093042005BC049 = {
 						CreatedOnToolsVersion = 14.0.1;
@@ -206,7 +204,7 @@
 				};
 			};
 			buildConfigurationList = ABAACF2B29093042005BC049 /* Build configuration list for PBXProject "CoreNetwork" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -247,18 +245,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB46737429141A4100415E06 /* DTODecoder.swift in Sources */,
-				8DB14B902913AFBF0098CDC7 /* CoreNetwork+Endpoint.swift in Sources */,
-				AB5C6A11291E47A300EF80A0 /* CoreNetwork+Connectivity.swift in Sources */,
+				AB8E51CF2922B984005A4079 /* URLParameters.swift in Sources */,
+				8DB14B902913AFBF0098CDC7 /* Endpoint.swift in Sources */,
+				AB8E51D12922C5CD005A4079 /* SessionDelegate.swift in Sources */,
+				AB5C6A11291E47A300EF80A0 /* Connectivity.swift in Sources */,
 				ABAACF3629093042005BC049 /* CoreNetwork.docc in Sources */,
-				8DB14B8C290FF2730098CDC7 /* CoreNetwork+Status.swift in Sources */,
-				AB91B30D290A74DB009C62C4 /* CoreNetwork+Query.swift in Sources */,
+				8DB14B8C290FF2730098CDC7 /* Status.swift in Sources */,
 				8D2A33D0291BB3A300E3A1E4 /* String+Extensions.swift in Sources */,
 				ABB69468292190D9008C7322 /* MockURLProtocol.swift in Sources */,
 				ABAACF4C290938B0005BC049 /* CoreNetwork.swift in Sources */,
-				AB91B30B290A7458009C62C4 /* CoreNetwork+Headers.swift in Sources */,
 				AB91B316290A9690009C62C4 /* URLRequest+Extensions.swift in Sources */,
-				AB91B309290A7212009C62C4 /* CoreNetwork+Methods.swift in Sources */,
-				AB91B30F290A7504009C62C4 /* CoreNetwork+Body.swift in Sources */,
+				AB91B309290A7212009C62C4 /* HTTPMethod.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,6 +401,7 @@
 		ABAACF4629093043005BC049 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -422,7 +420,7 @@
 				);
 				MACH_O_TYPE = staticlib;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ge.tbc.CoreNetwork;
+				PRODUCT_BUNDLE_IDENTIFIER = ge.tbc.framework.corenetwork;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -434,6 +432,7 @@
 		ABAACF4729093043005BC049 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -452,7 +451,7 @@
 				);
 				MACH_O_TYPE = staticlib;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ge.tbc.CoreNetwork;
+				PRODUCT_BUNDLE_IDENTIFIER = ge.tbc.framework.corenetwork;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;

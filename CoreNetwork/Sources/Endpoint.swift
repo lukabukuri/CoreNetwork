@@ -1,8 +1,9 @@
 //
-//  CoreNetwork+Endpoint.swift
+//  Endpoint.swift
 //  CoreNetwork
 //
 //  Created by Mishka Chargazia on 03.11.22.
+//  Copyright © 2022 JSC TBC Bank. All rights reserved.
 //
 
 import Foundation
@@ -21,7 +22,7 @@ public extension CoreNetwork {
         /// - The host subcomponent of the URL
         ///
         /// - Note: Nullable
-        var host: String?
+        var host: String
         
         /// Path
         ///
@@ -47,6 +48,16 @@ public extension CoreNetwork {
         ///
         /// - A dictionary of the data sent as the message body of a request, such as for an HTTP POST request
         var body: Body = .emptyBody
+        
+        public init(scheme: Scheme, host: String, path: String, query: Query, method: HTTPMethod, headers: Headers, body: Body) {
+            self.scheme = scheme
+            self.host = host
+            self.path = path
+            self.query = query
+            self.method = method
+            self.headers = headers
+            self.body = body
+        }
     }
     
 }
@@ -95,15 +106,14 @@ public extension CoreNetwork.Endpoint {
 
 public extension CoreNetwork.Endpoint {
     
-    /// Creates URLComponents object from given subcomponents of endpoint
-    func urlComponents() -> URLComponents {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = scheme.value
-        urlComponents.path = path.normalizedURLPath()
-        urlComponents.host = host
-        urlComponents.queryItems = query.isEmpty ? nil : query.urlQueryItems()
-        
-        return urlComponents
+    /// Creates URL object from given subcomponents of endpoint
+    func constructURL() -> URL? {
+        var url = scheme.value + ":" + host + path.normalizedURLPath()
+        if !query.isEmpty {
+            url += "?\(query.map { "\($0.key)=\($0.value)" }.joined(separator: "&"))"
+        }
+
+        return URL(string: url)
     }
     
 }

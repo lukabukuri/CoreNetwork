@@ -1,8 +1,9 @@
 //
-//  CoreNetwork+Connectivity.swift
+//  Connectivity.swift
 //  CoreNetwork
 //
 //  Created by Mishka Chargazia on 04.11.22.
+//  Copyright © 2022 JSC TBC Bank. All rights reserved.
 //
 
 import UIKit
@@ -18,7 +19,7 @@ public extension CoreNetwork {
         // MARK: - Public Properties
         
         /// Determines network connectivity status at the moment
-        static var isConnectedToNetwork: Bool {
+       public static var isConnectedToNetwork: Bool {
             var zeroAddress = sockaddr_in(sin_len: 0, sin_family: 0, sin_port: 0, sin_addr: in_addr(s_addr: 0), sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
             zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
             zeroAddress.sin_family = sa_family_t(AF_INET)
@@ -89,7 +90,7 @@ public extension CoreNetwork {
         // MARK: - Public Methods
         
         /// Schedules timer for polling
-        func startPolling() {
+       public func startPolling() {
             guard self.isPollingEnabled else { return }
             
             self.activateTimer()
@@ -100,7 +101,7 @@ public extension CoreNetwork {
         }
         
         /// Invalidates timer for polling
-        func stopPolling() {
+       public func stopPolling() {
             self.pollingStarted = false
             self.timer?.invalidate()
         }
@@ -108,7 +109,7 @@ public extension CoreNetwork {
         /// Sets polling enabled/disabled
         ///
         ///- Parameter enabled: Determines whether polling should be enabled or disabled
-        func setPolling(enabled: Bool) {
+        public func setPolling(enabled: Bool) {
             self.isPollingEnabled = enabled
         }
         
