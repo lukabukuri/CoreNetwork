@@ -10,9 +10,17 @@ import Foundation
 
 open class CoreNetwork {
     
+    /// URLSession object
     private let urlSession: URLSession
+    
+    /// SessionDelegate object
     public var delegate: SessionDelegate
     
+    /// Creates and initializes an instance and with given URLSessionConfiguration and ``SessionDelegate``
+    ///
+    /// - Parameters:
+    ///   - configuration: A configuration object that specifies certain behaviors of URLSession
+    ///   - delegate: A session delegate object that handles requests for authentication and other session-related events.
     public init(
         configuration: URLSessionConfiguration,
         delegate: SessionDelegate = SessionDelegate()) {
@@ -24,8 +32,15 @@ open class CoreNetwork {
                 delegateQueue: nil)
         }
     
-    
-    open func request<T: Decodable>(endpoint: Endpoint, type: T.Type = EmptyData.self) async throws -> T {
+    /// Makes async network request using given endpoint object
+    ///
+    /// - Parameters:
+    ///   - endpoint: Endpoint model for the request
+    ///   - type: Generic type for decoding response, defaults to ``EmptyData``
+    ///
+    /// - Throws: An error of type `CoreNetwork.Status`
+    /// - Returns: Object of generic type passed as a parameter
+    open func request<T>(endpoint: Endpoint, type: T.Type = EmptyData.self) async throws -> T where T : Decodable {
         
         let urlRequest = try URLRequest(from: endpoint)
         let (data, response) = try await urlSession.data(for: urlRequest)
@@ -38,10 +53,17 @@ open class CoreNetwork {
         return data
     }
     
+    /// Makes completion based network request using given endpoint object
+    ///
+    /// - Parameters:
+    ///   - endpoint: Endpoint model for the request
+    ///   - type: Generic type for decoding response, defaults to ``EmptyData``
+    ///   - completion: The completion handler with Result parameter to call when the network request is complete.
+    ///     - Result with associated type: generict type for success and `Status` error type for failure
     @available(*, deprecated, message: "Use async/await request instead")
-    open func request<T: Decodable>(endpoint: Endpoint,
-                                    type: T.Type = EmptyData.self,
-                                    completion: @escaping ((Result<T, Status>) -> Void) = { _ in }) {
+    open func request<T>(endpoint: Endpoint,
+                         type: T.Type = EmptyData.self,
+                         completion: @escaping ((Result<T, Status>) -> Void) = { _ in }) where T : Decodable {
         
         guard let urlRequest = try? URLRequest(from: endpoint) else {
             return completion(.failure(.couldNotMakeURLRequest)) }

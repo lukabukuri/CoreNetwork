@@ -8,9 +8,17 @@
 
 import Foundation
 
+/// Decoder for data transfer object
 struct DTODecoder {
     
-    func decode<T: Decodable>(type: T.Type, data: Data) -> T? {
+    /// Decodes data transfer object
+    ///
+    /// - Parameters:
+    ///   - type: The type of the value to decode from the supplied JSON object.
+    ///   - data: JSON object to be decoded
+    ///
+    /// - Returns: Decoded object of given type if decoding is successful
+    func decode<T>(type: T.Type, data: Data) -> T? where T : Decodable {
         if type == Data.self, let data = data as? T {
             return data
         }
@@ -26,4 +34,5 @@ struct DTODecoder {
     
 }
 
+/// Wrapper for empty decodable object
 public struct EmptyData: Decodable { }

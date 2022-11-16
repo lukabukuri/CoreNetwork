@@ -10,16 +10,21 @@ import UIKit
 import SystemConfiguration
 
 public extension CoreNetwork {
-    
+    /// Network connection monitor
+    ///
+    /// Checks for network connectivity status in given time interval and delivers its changes using ``didChange`` delegate property if polling is enabled, see ``setPolling(enabled:)``.
+    /// Connectivity status can be checked instantly at the moment using ``isConnectedToNetwork`` property
+    ///
+    /// - NOTE: Polling will be paused and resumed accordingly to the app's state changing from background to foreground
     class Connectivity {
         
         /// Connectivity status callback
-        typealias ConnectivityChanged = (Status) -> Void
+        public typealias ConnectivityChanged = (Status) -> Void
         
         // MARK: - Public Properties
         
         /// Determines network connectivity status at the moment
-       public static var isConnectedToNetwork: Bool {
+        public static var isConnectedToNetwork: Bool {
             var zeroAddress = sockaddr_in(sin_len: 0, sin_family: 0, sin_port: 0, sin_addr: in_addr(s_addr: 0), sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
             zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
             zeroAddress.sin_family = sa_family_t(AF_INET)
@@ -53,7 +58,7 @@ public extension CoreNetwork {
         }
         
         /// Callback fired when connectivity status changes
-        var didChange: ConnectivityChanged?
+        public var didChange: ConnectivityChanged?
         
         // MARK: - Private Properties
         
@@ -77,7 +82,7 @@ public extension CoreNetwork {
         /// Creates an instance with specified  `pollingInterval`
         ///
         /// - Parameter pollingInterval: TimeInterval in seconds for polling frequency, set to 1 second by default
-        init(pollingInterval: TimeInterval = 1) {
+        public init(pollingInterval: TimeInterval = 1) {
             self.pollingInterval = pollingInterval
         }
         
@@ -90,7 +95,7 @@ public extension CoreNetwork {
         // MARK: - Public Methods
         
         /// Schedules timer for polling
-       public func startPolling() {
+        public func startPolling() {
             guard self.isPollingEnabled else { return }
             
             self.activateTimer()
@@ -101,7 +106,7 @@ public extension CoreNetwork {
         }
         
         /// Invalidates timer for polling
-       public func stopPolling() {
+        public func stopPolling() {
             self.pollingStarted = false
             self.timer?.invalidate()
         }
@@ -127,7 +132,9 @@ public extension CoreNetwork {
             self.didChange?(currentStatus)
         }
         
-        /// Returns current connection status
+        /// Checks for current connection status
+        ///
+        /// - Returns: `Status`
         private func checkConnection() -> Status {
             return Self.isConnectedToNetwork ? .connected : .disconnected
         }
@@ -166,8 +173,21 @@ public extension CoreNetwork {
 
 // MARK: - Network Connectivity Status
 public extension CoreNetwork.Connectivity {
-    enum Status {
+    /// Netwok connection status
+    ///
+    /// ## Topics
+    ///
+    /// ### Statuses
+    ///
+    /// - ``connected``
+    /// - ``disconnected``
+    @frozen enum Status {
+        
+        /// Network connection available
         case connected
+        
+        /// Network connection unavailable
         case disconnected
+        
     }
 }

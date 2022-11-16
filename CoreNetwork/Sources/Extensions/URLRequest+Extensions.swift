@@ -15,7 +15,7 @@ extension URLRequest {
     /// - Parameters:
     ///    - endpoint: Endpoint model for the request
     ///
-    /// - Throws: badURL if URL can't be constructed using
+    /// - Throws: `CoreNetwork.Status`
     public init(from endpoint: CoreNetwork.Endpoint) throws {
         
         guard let url = endpoint.constructURL() else { throw CoreNetwork.Status.badURL }
@@ -25,6 +25,14 @@ extension URLRequest {
         try setParameters(headers: endpoint.headers, body: endpoint.body, method: endpoint.method)
     }
     
+    /// Sets given parameters to URLRequest
+    ///
+    /// - Parameters:
+    ///    - headers: Field/value pairs of headers
+    ///    - body: Body component for URLRequest
+    ///    - method: HTTP method for URLRequest
+    ///
+    /// - Throws: `CoreNetwork.Status`
     private mutating func setParameters(headers: CoreNetwork.Headers,
                                         body: CoreNetwork.Body,
                                         method: CoreNetwork.HTTPMethod) throws {
