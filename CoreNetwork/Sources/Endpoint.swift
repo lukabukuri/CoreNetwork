@@ -20,8 +20,6 @@ public extension CoreNetwork {
         /// Host
         ///
         /// - The host subcomponent of the URL
-        ///
-        /// - Note: Nullable
         var host: String
         
         /// Path
@@ -49,6 +47,16 @@ public extension CoreNetwork {
         /// - A dictionary of the data sent as the message body of a request, such as for an HTTP POST request
         var body: Body = .emptyBody
         
+        /// Creates an instance with given components
+        ///
+        /// - Parameters:
+        ///   - scheme: URL ``Scheme`` subcomponent
+        ///   - host: The host subcomponent of the URL
+        ///   - path: The path subcomponent of the URL
+        ///   - query: The query URL component
+        ///   - method: The HTTP request method of type `HTTPMethod`
+        ///   - headers: A dictionary containing the HTTP header fields for a request
+        ///   - body: A dictionary of the data sent as the message body of a request, such as for an HTTP POST request
         public init(scheme: Scheme, host: String, path: String, query: Query, method: HTTPMethod, headers: Headers, body: Body) {
             self.scheme = scheme
             self.host = host
@@ -65,7 +73,7 @@ public extension CoreNetwork {
 public extension CoreNetwork.Endpoint {
     
     /// URL Scheme subcomponent
-    enum Scheme {
+    @frozen enum Scheme {
         /// HTTPS
         ///
         /// - String value: "https"
@@ -85,7 +93,7 @@ public extension CoreNetwork.Endpoint {
         /// Value
         ///
         /// - String value for scheme subcomponent
-        var value: String {
+        public var value: String {
             switch self {
             case .https:
                 return "https"
@@ -99,7 +107,7 @@ public extension CoreNetwork.Endpoint {
         /// Default scheme
         ///
         /// - Set to https by default
-        static let defaultScheme: Self = .https
+        public static let defaultScheme: Self = .https
     }
     
 }
@@ -107,6 +115,8 @@ public extension CoreNetwork.Endpoint {
 public extension CoreNetwork.Endpoint {
     
     /// Creates URL object from given subcomponents of endpoint
+    ///
+    /// Returns nil if given a valid URL can not be constructed using given subcomponents of an endpoint
     func constructURL() -> URL? {
         var url = scheme.value + ":" + host + path.normalizedURLPath()
         if !query.isEmpty {
