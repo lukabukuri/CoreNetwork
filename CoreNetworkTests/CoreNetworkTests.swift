@@ -34,7 +34,8 @@ final class CoreNetworkTests: XCTestCase {
                                             query: .emptyQuery,
                                             method: .get,
                                             headers: .emptyHeaders,
-                                            body: .emptyBody)
+                                            body: .emptyBody,
+                                            files: [])
         
         MockURLProtocol.requestHandler =  { request in
             guard let url = request.url else { throw CoreNetwork.Status.badURL }
@@ -48,7 +49,7 @@ final class CoreNetworkTests: XCTestCase {
         Task {
             let data = try await sut.request(endpoint: endpoint, type: Data.self)
             
-            XCTAssertEqual(data, mockData)
+            XCTAssertEqual(data.0, mockData)
             expectation.fulfill()
         }
         
@@ -148,8 +149,8 @@ final class CoreNetworkTests: XCTestCase {
         sut.request(endpoint: endpoint, type: Data.self) { result in
             // Then
             switch result {
-            case .success(let data):
-                XCTAssertEqual(data, mockData)
+            case .success(let response):
+                XCTAssertEqual(response.0, mockData)
             case .failure(let error):
                 XCTFail("Request should have success response.\nfailure reason: \(error.localizedDescription)")
             }
