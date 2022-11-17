@@ -114,16 +114,21 @@ public extension CoreNetwork.Endpoint {
 
 public extension CoreNetwork.Endpoint {
     
-    /// Creates URL object from given subcomponents of endpoint
-    ///
-    /// Returns nil if given a valid URL can not be constructed using given subcomponents of an endpoint
-    func constructURL() -> URL? {
-        var url = scheme.value + ":" + host + path.normalizedURLPath()
-        if !query.isEmpty {
-            url += "?\(query.map { "\($0.key)=\($0.value)" }.joined(separator: "&"))"
+    /// Creates URLComponents object from given subcomponents of endpoint
+    func urlComponents() -> URLComponents {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = scheme.value
+        
+        if let url = URL(string: scheme.value.appending("://\(host)")) {
+            urlComponents.host = url.host
+            urlComponents.port = url.port
+            urlComponents.path = url.path.appending(path.normalizedURLPath())
         }
-
-        return URL(string: url)
+        
+        urlComponents.queryItems = query.isEmpty ? nil : query.urlQueryItems()
+        
+        return urlComponents
     }
     
 }
+
