@@ -21,16 +21,13 @@ open class CoreNetwork {
     /// - Parameters:
     ///   - configuration: A configuration object that specifies certain behaviors of URLSession
     ///   - delegate: A session delegate object that handles requests for authentication and other session-related events.
-    public init(
-        configuration: URLSessionConfiguration,
-        delegate: SessionDelegate = SessionDelegate()) {
-            
-            self.delegate = delegate
-            self.urlSession = URLSession(
-                configuration: configuration,
-                delegate: delegate,
-                delegateQueue: nil)
-        }
+    public init(configuration: URLSessionConfiguration,
+                delegate: SessionDelegate = SessionDelegate()) {
+        self.delegate = delegate
+        self.urlSession = URLSession(configuration: configuration,
+                                     delegate: delegate,
+                                     delegateQueue: nil)
+    }
     
     /// Makes async network request using given endpoint object
     ///
@@ -40,7 +37,9 @@ open class CoreNetwork {
     ///
     /// - Throws: An error of type `CoreNetwork.Status`
     /// - Returns: Object of generic type passed as a parameter
-    open func request<T>(endpoint: Endpoint, type: T.Type = EmptyData.self) async throws -> T where T : Decodable {
+    open func request<T>( endpoint: Endpoint,
+                          type: T.Type = EmptyData.self)
+    async throws -> (T, HTTPURLResponse?) where T : Decodable {
         
         let urlRequest = try URLRequest(from: endpoint)
         let (data, response) = try await urlSession.data(for: urlRequest)
@@ -50,7 +49,7 @@ open class CoreNetwork {
         
         guard let data = DTODecoder().decode(type: type, data: data) else { throw CoreNetwork.Status.decodingError}
         
-        return data
+        return (data, response as? HTTPURLResponse)
     }
     
     /// Makes completion based network request using given endpoint object
@@ -63,7 +62,7 @@ open class CoreNetwork {
     @available(*, deprecated, message: "Use async/await request instead")
     open func request<T>(endpoint: Endpoint,
                          type: T.Type = EmptyData.self,
-                         completion: @escaping ((Result<T, Status>) -> Void) = { _ in }) where T : Decodable {
+                         completion: @escaping ((Result<(T, HTTPURLResponse?), Status>) -> Void) = { _ in }) where T : Decodable {
         
         guard let urlRequest = try? URLRequest(from: endpoint) else {
             return completion(.failure(.couldNotMakeURLRequest)) }
@@ -80,7 +79,7 @@ open class CoreNetwork {
              
             DispatchQueue.main.async {
                 if let data = DTODecoder().decode(type: type, data: data) {
-                    completion(.success(data))
+                    completion(.success((data, response as? HTTPURLResponse)))
                 } else {
                     completion(.failure(.decodingError))
                 }

@@ -22,7 +22,7 @@ extension URLRequest {
         
         self.init(url: url)
         
-        try setParameters(headers: endpoint.headers, body: endpoint.body, method: endpoint.method)
+        try setParameters(headers: endpoint.headers, body: endpoint.body, method: endpoint.method, files: endpoint.files)
     }
     
     /// Sets given parameters to URLRequest
@@ -35,7 +35,8 @@ extension URLRequest {
     /// - Throws: `CoreNetwork.Status`
     private mutating func setParameters(headers: CoreNetwork.Headers,
                                         body: CoreNetwork.Body,
-                                        method: CoreNetwork.HTTPMethod) throws {
+                                        method: CoreNetwork.HTTPMethod,
+                                        files: [MediaFile]?) throws {
         
         httpMethod = method.rawValue
         
@@ -43,7 +44,11 @@ extension URLRequest {
             setValue(headerValue, forHTTPHeaderField: headerField)
         }
         
-        if !body.isEmpty {
+        if let files {
+            let boundary = String.uuid
+            setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+            httpBody = createDataBody(withParameters: body, files: files, boundary: boundary)
+        } else if !body.isEmpty {
             do {
                 httpBody = try JSONSerialization.data(withJSONObject: body)
             } catch {
@@ -51,4 +56,31 @@ extension URLRequest {
             }
         }
     }
+    
+    private func createDataBody(withParameters parameters: CoreNetwork.Body, files: [MediaFile], boundary: String) -> Data {
+        let lineBreak = "\r\n"
+        
+        var body = Data()
+        
+        for (key, value) in parameters {
+            body.append(value: "--\(boundary + lineBreak)")
+            body.append(value: "Content-Disposition: form-data; name=\"\(key)\"\(lineBreak + lineBreak)")
+            body.append(value: "\(value as! String + lineBreak)")
+        }
+        
+        for file in files {
+            body.append(value: "--\(boundary + lineBreak)")
+            body.append(value: "Content-Disposition: form-data; name=\"\(file.key)\"\(file.name == nil ? "" : "; filename=\"\(file.name!)\"")\r\n")
+            if let type = file.type {
+                body.append(value: "Content-Type: \(type + lineBreak + lineBreak)")
+            }
+            body.append(file.data)
+            body.append(value: lineBreak)
+        }
+        body.append(value: "--\(boundary)--\(lineBreak)")
+        
+        
+        return body
+    }
+
 }
