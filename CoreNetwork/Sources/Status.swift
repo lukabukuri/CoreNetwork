@@ -21,7 +21,7 @@ public extension CoreNetwork {
     /// - ``encodingError``
     /// - ``decodingError``
     /// - ``couldNotMakeURLRequest``
-    @frozen enum Status: Error {
+    @frozen enum Status: Error, Equatable {
         
         /// Network error with specific status code
         case networkError(statusCode: Int)

@@ -69,7 +69,7 @@ open class CoreNetwork {
         
         urlSession.dataTask(with: urlRequest) { data, response, error in
             let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
-            
+            print(statusCode)
             guard error == nil, let data, (200..<300).contains(statusCode) else {
                 DispatchQueue.main.async {
                     completion(.failure(.networkError(statusCode: statusCode)))
