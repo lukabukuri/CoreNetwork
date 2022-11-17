@@ -19,6 +19,10 @@ public extension CoreNetwork {
     /// Dictionary for URLRequest body component
     typealias Body = [String : Any]
     
+    typealias JSON = [String : Any]
+    
+    typealias JSONArray = [[String : Any]]
+    
 }
 
 public extension CoreNetwork.Headers {
