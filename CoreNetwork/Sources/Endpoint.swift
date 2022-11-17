@@ -47,6 +47,9 @@ public extension CoreNetwork {
         /// - A dictionary of the data sent as the message body of a request, such as for an HTTP POST request
         var body: Body = .emptyBody
         
+        
+        var files: [MediaFile]?
+        
         /// Creates an instance with given components
         ///
         /// - Parameters:
@@ -57,7 +60,7 @@ public extension CoreNetwork {
         ///   - method: The HTTP request method of type `HTTPMethod`
         ///   - headers: A dictionary containing the HTTP header fields for a request
         ///   - body: A dictionary of the data sent as the message body of a request, such as for an HTTP POST request
-        public init(scheme: Scheme, host: String, path: String, query: Query, method: HTTPMethod, headers: Headers, body: Body) {
+        public init(scheme: Scheme, host: String, path: String, query: Query, method: HTTPMethod, headers: Headers, body: Body, files: [MediaFile]?) {
             self.scheme = scheme
             self.host = host
             self.path = path
@@ -65,6 +68,7 @@ public extension CoreNetwork {
             self.method = method
             self.headers = headers
             self.body = body
+            self.files = files
         }
     }
     
@@ -118,7 +122,7 @@ public extension CoreNetwork.Endpoint {
     ///
     /// Returns nil if given a valid URL can not be constructed using given subcomponents of an endpoint
     func constructURL() -> URL? {
-        var url = scheme.value + ":" + host + path.normalizedURLPath()
+        var url = scheme.value + "://" + host + path.normalizedURLPath()
         if !query.isEmpty {
             url += "?\(query.map { "\($0.key)=\($0.value)" }.joined(separator: "&"))"
         }
