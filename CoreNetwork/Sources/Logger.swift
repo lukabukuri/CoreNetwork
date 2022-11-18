@@ -28,6 +28,11 @@ public extension CoreNetwork {
         /// Custom logging option for response
         var customResponseLogger: ((HTTPURLResponse?, Data?, Error?) -> ())?
         
+        /// Date format
+        ///
+        /// Example: 2022-11-18 15:23:05.0730
+        private let dateFormat = "y-MM-dd H:mm:ss.SSSS"
+        
         /// Private init for shared instance
         private init() { }
         
@@ -52,6 +57,11 @@ public extension CoreNetwork {
             case .debug:
                 print(urlDescription)
                 print(methodDescription)
+                
+                let df = DateFormatter()
+                df.dateFormat = dateFormat
+                print("Request date:", df.string(from: Date()))
+                
                 print("HEADERS:", request.allHTTPHeaderFields?.description ?? "N/A")
                 print("BODY:", request.httpBody?.description ?? "N/A")
             case .info:
@@ -83,6 +93,11 @@ public extension CoreNetwork {
             case .debug:
                 print(urlDescription)
                 print(statusCodeDescription)
+                
+                let df = DateFormatter()
+                df.dateFormat = dateFormat
+                print("Response date:", df.string(from: Date()))
+                
                 if let error {
                     print("Error:", error.localizedDescription)
                     return
