@@ -42,10 +42,10 @@ open class CoreNetwork {
     async throws -> (T, HTTPURLResponse?) where T : Decodable {
         
         let urlRequest = try URLRequest(from: endpoint)
-        Logger.log(urlRequest)
+        Logger.shared.log(urlRequest)
         
         let (data, response) = try await urlSession.data(for: urlRequest)
-        Logger.log(response as? HTTPURLResponse, data: data, error: nil)
+        Logger.shared.log(response as? HTTPURLResponse, data: data, error: nil)
         
         let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
         
@@ -71,10 +71,10 @@ open class CoreNetwork {
         guard let urlRequest = try? URLRequest(from: endpoint) else {
             return completion(.failure(.couldNotMakeURLRequest)) }
         
-        Logger.log(urlRequest)
+        Logger.shared.log(urlRequest)
         
         urlSession.dataTask(with: urlRequest) { data, response, error in
-            Logger.log(response as? HTTPURLResponse, data: data, error: error)
+            Logger.shared.log(response as? HTTPURLResponse, data: data, error: error)
             
             let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
             guard error == nil, let data, (200..<300).contains(statusCode) else {

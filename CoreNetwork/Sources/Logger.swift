@@ -17,16 +17,16 @@ public extension CoreNetwork {
         static let shared = Logger()
         
         /// Determines logging state using `Level` enum
-        static var logLevel: Level = .off
+        var logLevel: Level = .off
         
         /// URL Predecates
-        static var urlPredicates: [NSPredicate] = []
+        var urlPredicates: [NSPredicate] = []
         
         /// Custom logging option for request
-        static var customRequestLogger: ((URLRequest) -> ())?
+        var customRequestLogger: ((URLRequest) -> ())?
         
         /// Custom logging option for response
-        static var customResponseLogger: ((HTTPURLResponse?, Data?, Error?) -> ())?
+        var customResponseLogger: ((HTTPURLResponse?, Data?, Error?) -> ())?
         
         /// Private init for shared instance
         private init() { }
@@ -35,7 +35,7 @@ public extension CoreNetwork {
         ///
         /// - Parameters:
         ///    - request: URLRequest object
-        static func log(_ request: URLRequest) {
+        func log(_ request: URLRequest) {
             guard evaluateURL(request.url?.absoluteString ?? "") else { return }
             
             guard customRequestLogger == nil else {
@@ -66,7 +66,7 @@ public extension CoreNetwork {
         ///    - response: HTTPURLResponse object
         ///    - data: Data object of request response
         ///    - error: `Error` occured during request
-        static func log(_ response: HTTPURLResponse?, data: Data?, error: Error?) {
+        func log(_ response: HTTPURLResponse?, data: Data?, error: Error?) {
             guard evaluateURL(response?.url?.absoluteString ?? "") else { return }
             
             guard customResponseLogger == nil else {
@@ -101,7 +101,7 @@ public extension CoreNetwork {
         /// Evaluates if url matches given predicates
         ///
         /// - Returns: `Boolean`, true if no predicates are provided or URL matches any of the predicates
-        private static func evaluateURL(_ url: String) -> Bool {
+        private func evaluateURL(_ url: String) -> Bool {
             return urlPredicates.isEmpty || urlPredicates.contains(where: { $0.evaluate(with: url) })
         }
         
