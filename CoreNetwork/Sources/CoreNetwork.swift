@@ -37,12 +37,16 @@ open class CoreNetwork {
     ///
     /// - Throws: An error of type `CoreNetwork.Status`
     /// - Returns: Object of generic type passed as a parameter
-    open func request<T>( endpoint: Endpoint,
-                          type: T.Type = EmptyData.self)
+    open func request<T>(endpoint: Endpoint,
+                         type: T.Type = EmptyData.self)
     async throws -> (T, HTTPURLResponse?) where T : Decodable {
         
         let urlRequest = try URLRequest(from: endpoint)
+        Logger.log(urlRequest)
+        
         let (data, response) = try await urlSession.data(for: urlRequest)
+        Logger.log(response as? HTTPURLResponse, data: data, error: nil)
+        
         let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
         
         guard (200..<300).contains(statusCode) else { throw CoreNetwork.Status.networkError(statusCode: statusCode) }
@@ -67,9 +71,12 @@ open class CoreNetwork {
         guard let urlRequest = try? URLRequest(from: endpoint) else {
             return completion(.failure(.couldNotMakeURLRequest)) }
         
+        Logger.log(urlRequest)
+        
         urlSession.dataTask(with: urlRequest) { data, response, error in
+            Logger.log(response as? HTTPURLResponse, data: data, error: error)
+            
             let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
-            print(statusCode)
             guard error == nil, let data, (200..<300).contains(statusCode) else {
                 DispatchQueue.main.async {
                     completion(.failure(.networkError(statusCode: statusCode)))
