@@ -13,9 +13,6 @@ public extension CoreNetwork {
     /// Console logger for network requests and responses
     final class Logger {
         
-        /// Shared instance
-        static let shared = Logger()
-        
         /// Determines logging state using `Level` enum
         var logLevel: Level = .off
         
@@ -32,9 +29,6 @@ public extension CoreNetwork {
         ///
         /// Example: 2022-11-18 15:23:05.0730
         private let dateFormat = "y-MM-dd H:mm:ss.SSSS"
-        
-        /// Private init for shared instance
-        private init() { }
         
         /// Logs request details if evaluated as eligible for logging
         ///
