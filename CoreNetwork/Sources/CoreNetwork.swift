@@ -16,6 +16,9 @@ open class CoreNetwork {
     /// SessionDelegate object
     public var delegate: SessionDelegate
     
+    /// Logger
+    private var logger: Logger?
+    
     /// Creates and initializes an instance and with given URLSessionConfiguration and ``SessionDelegate``
     ///
     /// - Parameters:
@@ -42,10 +45,10 @@ open class CoreNetwork {
     async throws -> (T, HTTPURLResponse?) where T : Decodable {
         
         let urlRequest = try URLRequest(from: endpoint)
-        Logger.shared.log(urlRequest)
+        logger?.log(urlRequest)
         
         let (data, response) = try await urlSession.data(for: urlRequest)
-        Logger.shared.log(response as? HTTPURLResponse, data: data, error: nil)
+        logger?.log(response as? HTTPURLResponse, data: data, error: nil)
         
         let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
         
@@ -71,10 +74,10 @@ open class CoreNetwork {
         guard let urlRequest = try? URLRequest(from: endpoint) else {
             return completion(.failure(.couldNotMakeURLRequest)) }
         
-        Logger.shared.log(urlRequest)
+        logger?.log(urlRequest)
         
-        urlSession.dataTask(with: urlRequest) { data, response, error in
-            Logger.shared.log(response as? HTTPURLResponse, data: data, error: error)
+        urlSession.dataTask(with: urlRequest) { [weak self] data, response, error in
+            self?.logger?.log(response as? HTTPURLResponse, data: data, error: error)
             
             let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
             guard error == nil, let data, (200..<300).contains(statusCode) else {
@@ -92,5 +95,13 @@ open class CoreNetwork {
                 }
             }
         }.resume()
+    }
+    
+    /// Sets logging level
+    ///
+    /// - Parameters: level: Logging level
+    func setLogginig(level: Logger.Level) {
+        self.logger = Logger()
+        self.logger?.logLevel = level
     }
 }
