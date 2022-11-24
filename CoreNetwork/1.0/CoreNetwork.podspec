@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '13.0'
   s.requires_arc = true
 
-  s.source_files = 'CoreNetwork/**/*'
+  s.source_files = 'CoreNetwork/Sources/**/*.swift'
 
   s.frameworks = 'UIKit', 'Foundation', 'SystemConfiguration', 'XCTest'
   s.swift_version = '5.0'	
