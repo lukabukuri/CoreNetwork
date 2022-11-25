@@ -11,8 +11,8 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.source_files = 'CoreNetwork/**/*'
-  s.exclude_files = 'CoreNetwork/CoreNetwork.docc'
 
-  s.frameworks = 'UIKit', 'Foundation', 'SystemConfiguration', 'XCTest'
+  s.frameworks = 'UIKit', 'Foundation', 'SystemConfiguration'
   s.swift_version = '5.0'	
 end
+
