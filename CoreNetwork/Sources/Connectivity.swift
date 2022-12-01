@@ -9,14 +9,14 @@
 import UIKit
 import SystemConfiguration
 
-public extension CoreNetwork {
+extension CoreNetwork {
     /// Network connection monitor
     ///
     /// Checks for network connectivity status in given time interval and delivers its changes using ``didChange`` delegate property if polling is enabled, see ``setPolling(enabled:)``.
     /// Connectivity status can be checked instantly at the moment using ``isConnectedToNetwork`` property
     ///
     /// - NOTE: Polling will be paused and resumed accordingly to the app's state changing from background to foreground
-    class Connectivity {
+    public class Connectivity {
         
         /// Connectivity status callback
         public typealias ConnectivityChanged = (Status) -> Void
@@ -172,7 +172,7 @@ public extension CoreNetwork {
 }
 
 // MARK: - Network Connectivity Status
-public extension CoreNetwork.Connectivity {
+extension CoreNetwork.Connectivity {
     /// Netwok connection status
     ///
     /// ## Topics
@@ -181,7 +181,7 @@ public extension CoreNetwork.Connectivity {
     ///
     /// - ``connected``
     /// - ``disconnected``
-    @frozen enum Status {
+    @frozen public enum Status {
         
         /// Network connection available
         case connected

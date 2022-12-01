@@ -14,7 +14,7 @@ public extension CoreNetwork {
     typealias Headers = [String : String]
     
     /// Dictionary for URLRequest query component
-    typealias Query = [String : String]
+    typealias Query = [String : Any]
     
     /// Dictionary for URLRequest body component
     typealias Body = [String : Any]
@@ -39,7 +39,7 @@ public extension CoreNetwork.Query {
     
     /// Creates URLQueryItem array from dictionary
     func urlQueryItems() -> [URLQueryItem] {
-        map({ URLQueryItem(name: $0.key, value: $0.value) })
+        map({ URLQueryItem(name: $0.key, value: ($0.value as? LosslessStringConvertible)?.description) })
     }
 }
 

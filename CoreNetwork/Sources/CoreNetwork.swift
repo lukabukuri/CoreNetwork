@@ -100,7 +100,7 @@ open class CoreNetwork {
     /// Sets logging level
     ///
     /// - Parameters: level: Logging level
-    func setLogginig(level: Logger.Level) {
+    public func setLogginig(level: Logger.Level) {
         self.logger = Logger()
         self.logger?.logLevel = level
     }

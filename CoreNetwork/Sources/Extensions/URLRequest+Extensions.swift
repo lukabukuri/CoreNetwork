@@ -22,7 +22,7 @@ extension URLRequest {
         
         self.init(url: url)
         
-        try setParameters(headers: endpoint.headers, body: endpoint.body, method: endpoint.method, files: endpoint.files)
+        try setParameters(headers: endpoint.headers, body: endpoint.body, bodyObject: endpoint.bodyObject, method: endpoint.method, files: endpoint.files)
     }
     
     /// Sets given parameters to URLRequest
@@ -35,6 +35,7 @@ extension URLRequest {
     /// - Throws: `CoreNetwork.Status`
     private mutating func setParameters(headers: CoreNetwork.Headers,
                                         body: CoreNetwork.Body,
+                                        bodyObject: Encodable?,
                                         method: CoreNetwork.HTTPMethod,
                                         files: [MediaFile]?) throws {
         
@@ -50,7 +51,15 @@ extension URLRequest {
             httpBody = createDataBody(withParameters: body, files: files, boundary: boundary)
         } else if !body.isEmpty {
             do {
+                setValue("application/json", forHTTPHeaderField: "Content-Type")
                 httpBody = try JSONSerialization.data(withJSONObject: body)
+            } catch {
+                throw CoreNetwork.Status.encodingError
+            }
+        } else if let bodyObject {
+            do {
+                setValue("application/json", forHTTPHeaderField: "Content-Type")
+                httpBody = try JSONEncoder().encode(bodyObject)
             } catch {
                 throw CoreNetwork.Status.encodingError
             }
