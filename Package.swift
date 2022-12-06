@@ -9,6 +9,7 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "CoreNetwork",
+            platforms: [.iOS("13.0")],
             targets: ["CoreNetwork"]),
     ],
     dependencies: [
