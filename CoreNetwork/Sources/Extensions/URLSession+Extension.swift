@@ -2,7 +2,7 @@
 //  URLSession+Extension.swift
 //  CoreNetwork
 //
-//  Created by Luka Bukuri on 07.12.22.
+//  Created by Luka Bukuri on 06.12.22.
 //  Copyright © 2022 JSC TBC Bank. All rights reserved.
 //
 
