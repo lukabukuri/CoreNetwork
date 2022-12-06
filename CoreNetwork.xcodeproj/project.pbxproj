@@ -48,6 +48,7 @@
 		8DB14B8F2913AFBF0098CDC7 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		AB177284292645880007F87E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		AB46737329141A4100415E06 /* DTODecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTODecoder.swift; sourceTree = "<group>"; };
+		AB4815B8293FE2EB004CC835 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		AB5C6A10291E47A300EF80A0 /* Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connectivity.swift; sourceTree = "<group>"; };
 		AB8E51CE2922B984005A4079 /* URLParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLParameters.swift; sourceTree = "<group>"; };
 		AB8E51D02922C5CD005A4079 /* SessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +116,7 @@
 		ABAACF2729093042005BC049 = {
 			isa = PBXGroup;
 			children = (
+				AB4815B8293FE2EB004CC835 /* Package.swift */,
 				ABAACF3329093042005BC049 /* CoreNetwork */,
 				ABAACF3F29093043005BC049 /* CoreNetworkTests */,
 				ABAACF3229093042005BC049 /* Products */,
