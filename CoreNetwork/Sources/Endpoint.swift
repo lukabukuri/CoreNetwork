@@ -66,7 +66,7 @@ public extension CoreNetwork {
         ///   - method: The HTTP request method of type `HTTPMethod`
         ///   - headers: A dictionary containing the HTTP header fields for a request
         ///   - body: A dictionary of the data sent as the message body of a request, such as for an HTTP POST request
-        public init(scheme: Scheme, host: String, path: String, query: Query, method: HTTPMethod, headers: Headers, body: Body, bodyObject: Encodable? = nil, files: [MediaFile]? = nil) {
+        public init(scheme: Scheme = .defaultScheme, host: String, path: String, query: Query, method: HTTPMethod, headers: Headers, body: Body, bodyObject: Encodable? = nil, files: [MediaFile]? = nil) {
             self.scheme = scheme
             self.host = host
             self.path = path
@@ -102,45 +102,61 @@ public extension CoreNetwork.Endpoint {
         /// - Parameter value: Custom value for scheme subcomponent
         case custom(value: String)
         
+        case empty
+        
         /// Value
         ///
         /// - String value for scheme subcomponent
         public var value: String {
             switch self {
             case .https:
-                return "https"
+                return "https://"
             case .http:
-                return "http"
+                return "http://"
             case .custom(let value):
                 return value
+            case .empty:
+                return ""
             }
         }
         
         /// Default scheme
         ///
         /// - Set to https by default
-        public static let defaultScheme: Self = .https
+        public static let defaultScheme: Self = .empty
     }
     
 }
 
 public extension CoreNetwork.Endpoint {
-    
-    /// Creates URLComponents object from given subcomponents of endpoint
-    func urlComponents() -> URLComponents {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = scheme.value
+
+    private var hostWithPath: String {
+        let path = !path.hasPrefix("/") && !path.isEmpty ? "/".appending(path) : path
         
-        if let url = URL(string: scheme.value.appending("://\(host)")) {
-            urlComponents.host = url.host
-            urlComponents.port = url.port
-            urlComponents.path = url.path.appending(path.normalizedURLPath())
+        guard !host.isEmpty else { return path }
+        
+        if path.isEmpty {
+            return host
+        } else if !host.hasSuffix("/") {
+            return host + path
+        } else {
+            var host = host
+            if !path.isEmpty {
+                host.removeLast()
+            }
+            return host + path
         }
-        
-        urlComponents.queryItems = query.isEmpty ? nil : query.urlQueryItems()
-        
-        return urlComponents
     }
+
     
+    /// Creates URL string from given subcomponents of endpoint
+    var url: URL? {
+        let allowedCharacterSet = CharacterSet.urlHostAllowed.union(.urlPathAllowed).union(.urlQueryAllowed)
+        let urlString = scheme.value + hostWithPath + (!query.isEmpty ? "?\(query.map { "\($0.key)=\($0.value)" }.joined(separator: "&"))" : "")
+        
+        guard let url = urlString.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) else { return nil }
+        
+        return URL(string: url)
+    }
 }
 
