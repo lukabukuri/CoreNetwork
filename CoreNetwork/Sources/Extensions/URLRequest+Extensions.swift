@@ -18,7 +18,7 @@ extension URLRequest {
     /// - Throws: `CoreNetwork.Status`
     public init(from endpoint: CoreNetwork.Endpoint) throws {
         
-        guard let url = endpoint.urlComponents().url else { throw CoreNetwork.Status.badURL }
+        guard let url = endpoint.url else { throw CoreNetwork.Status.badURL }
         
         self.init(url: url)
         
