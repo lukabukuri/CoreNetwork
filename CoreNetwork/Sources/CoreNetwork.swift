@@ -80,9 +80,17 @@ open class CoreNetwork {
             self?.logger?.log(response as? HTTPURLResponse, data: data, error: error)
             
             let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
-            guard error == nil, let data, (200..<300).contains(statusCode) else {
+            
+            guard error == nil, let data else {
                 DispatchQueue.main.async {
                     completion(.failure(.networkError(statusCode: statusCode)))
+                }
+                return
+            }
+            
+            guard (200..<300).contains(statusCode) else {
+                DispatchQueue.main.async {
+                    completion(.failure(.error(data, statusCode: statusCode)))
                 }
                 return
             }

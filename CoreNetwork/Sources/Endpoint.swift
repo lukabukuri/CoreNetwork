@@ -74,9 +74,8 @@ public extension CoreNetwork {
             self.method = method
             self.headers = headers
             self.body = body
-            self.files = files
-            
             self.bodyObject = bodyObject
+            self.files = files
         }
     }
     

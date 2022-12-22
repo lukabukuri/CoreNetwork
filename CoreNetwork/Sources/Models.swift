@@ -9,7 +9,15 @@
 import Foundation
 
 /// Wrapper for empty decodable object
-public struct EmptyData: Decodable { }
+public struct EmptyData: Decodable {
+    
+    public private(set) var decoder: Decoder?
+   
+    public init(from decoder: Decoder) {
+        self.decoder = decoder
+    }
+
+}
 
 public struct MediaFile {
     

@@ -37,6 +37,8 @@ public extension CoreNetwork {
         
         /// Failed to make a URLRequest
         case couldNotMakeURLRequest
+        
+        case error(Data, statusCode: Int)
     }
     
 }

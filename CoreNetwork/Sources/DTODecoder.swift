@@ -23,14 +23,6 @@ struct DTODecoder {
             return data
         }
         
-        let jsonObject = try? JSONSerialization.jsonObject(with: data)
-        
-        if let json = jsonObject as? CoreNetwork.JSON {
-            print(json)
-        } else if let jsonArray = jsonObject as? CoreNetwork.JSONArray {
-            print(jsonArray)
-        }
-        
         do {
             let result = try JSONDecoder().decode(T.self, from: data)
             return result
