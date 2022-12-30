@@ -95,11 +95,22 @@ open class CoreNetwork {
         })
     }
     
+    /// Makes request with given URLRequest
+    ///
+    /// - Parameters:
+    ///   - urlRequest: URLRequest
+    ///   - completion: Completion handler with `AnyResponse`type  for success and `NetworkError` as error type
     public func request(urlRequest: URLRequest,
-                      completion: @escaping ((Result<AnyResponse, NetworkError>) -> Void) = { _ in }) {
+                        completion: @escaping ((Result<AnyResponse, NetworkError>) -> Void) = { _ in }) {
         self.urlSessionDataTask(urlRequest: urlRequest, completion: completion)
     }
     
+    
+    /// Creates URLSession task with given URLRequest
+    ///
+    /// - Parameters:
+    ///   - urlRequest: URLRequest
+    ///   - completion: Completion handler with `AnyResponse`type  for success and `NetworkError` as error type
     private func urlSessionDataTask(urlRequest: URLRequest,
                                     completion: @escaping ((Result<AnyResponse, NetworkError>) -> Void) = { _ in }) {
         
@@ -128,6 +139,10 @@ open class CoreNetwork {
         }.resume()
     }
     
+    /// Creates URLRequest from given endpoint
+    ///
+    /// - Parameters:
+    ///   - endpoint: Endpoint object
     public func urlRequest(from endpoint: Endpoint) -> URLRequest? {
         return try? URLRequest(from: endpoint)
     }

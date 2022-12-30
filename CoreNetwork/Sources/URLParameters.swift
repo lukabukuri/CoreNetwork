@@ -19,8 +19,10 @@ public extension CoreNetwork {
     /// Dictionary for URLRequest body component
     typealias Body = [String : Any]
     
+    /// Dictionary for JSON object
     typealias JSON = [String : Any]
     
+    /// Array of JSON objects
     typealias JSONArray = [[String : Any]]
     
 }

@@ -54,6 +54,9 @@ public extension CoreNetwork {
         var bodyObject: Encodable?
         
         
+        /// Files
+        ///
+        /// - Array of media files (such as jpeg, gif, pdf...)
         var files: [MediaFile]?
         
         /// Creates an instance with given components
@@ -66,6 +69,8 @@ public extension CoreNetwork {
         ///   - method: The HTTP request method of type `HTTPMethod`
         ///   - headers: A dictionary containing the HTTP header fields for a request
         ///   - body: A dictionary of the data sent as the message body of a request, such as for an HTTP POST request
+        ///   - bodyObject: Encodable object for message body of a request, such as for an HTTP POST request
+        ///   - files: rray of media files (such as jpeg, gif, pdf...)
         public init(scheme: Scheme = .defaultScheme, host: String, path: String, query: Query, method: HTTPMethod, headers: Headers, body: Body, bodyObject: Encodable? = nil, files: [MediaFile]? = nil) {
             self.scheme = scheme
             self.host = host
@@ -108,10 +113,22 @@ public extension CoreNetwork.Endpoint {
         /// - String value for scheme subcomponent
         public var value: String {
             switch self {
+            case .https, .http:
+                return "\(name)://"
+            case .custom(let value):
+                return value
+            case .empty:
+                return ""
+            }
+        }
+        
+        /// Name
+        public var name: String {
+            switch self {
             case .https:
-                return "https://"
+                return "https"
             case .http:
-                return "http://"
+                return "http"
             case .custom(let value):
                 return value
             case .empty:
@@ -129,6 +146,7 @@ public extension CoreNetwork.Endpoint {
 
 public extension CoreNetwork.Endpoint {
 
+    /// Host subcomponent combined with path
     private var hostWithPath: String {
         let path = !path.hasPrefix("/") && !path.isEmpty ? "/".appending(path) : path
         
@@ -148,7 +166,7 @@ public extension CoreNetwork.Endpoint {
     }
 
     
-    /// Creates URL string from given subcomponents of endpoint
+    /// Creates URL from given subcomponents of endpoint
     var url: URL? {
         let allowedCharacterSet = CharacterSet.urlHostAllowed.union(.urlPathAllowed).union(.urlQueryAllowed)
         let urlString = scheme.value + hostWithPath + (!query.isEmpty ? "?\(query.map { "\($0.key)=\($0.value)" }.joined(separator: "&"))" : "")

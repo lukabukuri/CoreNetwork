@@ -10,6 +10,15 @@ import Foundation
 
 final public class SSLPinningManager {
     
+    /// Validates SSL certificate with public keys
+    ///
+    /// - Parameters:
+    ///   - publicKeys: List of public keys for validation
+    ///   - domain: Specific domain to validate (i.e. subdomain)
+    ///   - challenge: A challenge from a server requiring authentication from the client.
+    ///   - completionHandler: A handler that your delegate method must call. This completion handler takes the following parameters::
+    ///     - disposition—One of several constants that describes how the challenge should be handled.
+    ///     - credential—The credential that should be used for authentication if disposition is `NSURLSessionAuthChallengeUseCredential`, otherwise NULL.
     static public func validate(publicKeys: String...,
                                 domain: String?,
                                 challenge: URLAuthenticationChallenge,

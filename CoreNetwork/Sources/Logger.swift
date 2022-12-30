@@ -46,9 +46,9 @@ public extension CoreNetwork {
             let methodDescription = "METHOD: \(request.httpMethod?.description ?? "N/A")"
             
             switch logLevel {
-            case .off:
+            case .off, .debug:
                 break
-            case .debug:
+            case .verbose:
                 print(urlDescription)
                 print(methodDescription)
                 
@@ -84,7 +84,7 @@ public extension CoreNetwork {
             switch logLevel {
             case .off:
                 return
-            case .debug:
+            case .verbose, .debug:
                 print(urlDescription)
                 print(statusCodeDescription)
                 
@@ -97,9 +97,8 @@ public extension CoreNetwork {
                     return
                 }
                 print("Response Type:", response?.mimeType ?? "N/A")
-                if let data,
-                   let jsonData = try? JSONSerialization.jsonObject(with: data, options: []) {
-                    print("Response JSON:\n", jsonData)
+                if let data {
+                    print("Response JSON:\n", String(decoding: data, as: UTF8.self))
                 }
             case .info:
                 print(urlDescription)
@@ -132,8 +131,11 @@ public extension CoreNetwork.Logger {
         /// Logging  disabled
         case off
         
-        /// Logs URL, HTTP method, headers, body, response status code, response data type and JSON response
+        /// Logs URL, response status code, response data type and response
         case debug
+        
+        /// Logs URL, HTTP method, headers, body, response status code, response data type and response
+        case verbose
         
         /// Logs URL, HTTP method, response status code
         case info

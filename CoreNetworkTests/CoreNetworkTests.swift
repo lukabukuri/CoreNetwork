@@ -188,7 +188,7 @@ final class CoreNetworkTests: XCTestCase {
             case .success:
                 XCTFail("Request was expected to fail")
             case .failure(let error):
-                XCTAssertEqual(error, CoreNetwork.NetworkError.error(statusCode: 401))
+                XCTAssertEqual(error, CoreNetwork.NetworkError.error(mockData, statusCode: 401))
             }
             expectation.fulfill()
         }
@@ -263,7 +263,7 @@ final class CoreNetworkTests: XCTestCase {
             }
             
             XCTAssertEqual(request.httpMethod, "POST", "Incorrect HTTP method set to request")
-            XCTAssertEqual(mockScheme.value, request.url?.scheme, "Incorrect scheme set to URL")
+            XCTAssertEqual(mockScheme.name, request.url?.scheme, "Incorrect scheme set to URL")
             XCTAssertEqual(mockHost, request.url?.host, "Incorrect host passed to URL")
             XCTAssertEqual(request.url?.path, path, "Incorrect path attached to URL")
             

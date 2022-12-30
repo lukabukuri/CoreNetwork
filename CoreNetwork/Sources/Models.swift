@@ -19,13 +19,28 @@ public struct EmptyData: Decodable {
 
 }
 
+/// Media file model
 public struct MediaFile {
     
+    /// File name
     var key: String
+    
+    /// File data
     var data: Data
+    
+    /// File name with extension
     var name: String?
+    
+    /// File type (such as jpeg, gif, pdf...)
     var type: String?
     
+    /// Creates an instance with given parameters
+    ///
+    /// - Parameters:
+    ///   - key: File name
+    ///   - data: File data
+    ///   - name: File name with extension
+    ///   - type: File type (such as jpeg, gif, pdf...)
     public init(key: String, data: Data, name: String? = nil, type: String? = nil) {
         self.key = key
         self.data = data
@@ -35,7 +50,11 @@ public struct MediaFile {
     
 }
 
+/// Wrapper for network response
 public struct AnyResponse {
+    /// Response data
     public var data: Data
+    
+    /// An object that provides response metadata
     public var response: URLResponse?
 }

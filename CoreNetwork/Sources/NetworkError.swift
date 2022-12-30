@@ -23,7 +23,7 @@ public extension CoreNetwork {
     /// - ``couldNotMakeURLRequest``
     @frozen enum NetworkError: Error, Equatable {
         
-        /// Network error with specific status code
+        /// Error with data and status code
         case error(Data? = nil, statusCode: Int)
         
         /// URL can't be constructed from given components
