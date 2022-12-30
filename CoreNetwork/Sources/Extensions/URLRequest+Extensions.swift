@@ -15,10 +15,10 @@ extension URLRequest {
     /// - Parameters:
     ///    - endpoint: Endpoint model for the request
     ///
-    /// - Throws: `CoreNetwork.Status`
+    /// - Throws: `CoreNetwork.NetworkError`
     public init(from endpoint: CoreNetwork.Endpoint) throws {
         
-        guard let url = endpoint.url else { throw CoreNetwork.Status.badURL }
+        guard let url = endpoint.url else { throw CoreNetwork.NetworkError.badURL }
         
         self.init(url: url)
         
@@ -32,7 +32,7 @@ extension URLRequest {
     ///    - body: Body component for URLRequest
     ///    - method: HTTP method for URLRequest
     ///
-    /// - Throws: `CoreNetwork.Status`
+    /// - Throws: `CoreNetwork.NetworkError`
     private mutating func setParameters(headers: CoreNetwork.Headers,
                                         body: CoreNetwork.Body,
                                         bodyObject: Encodable?,
@@ -54,14 +54,14 @@ extension URLRequest {
                 setValue("application/json", forHTTPHeaderField: "Content-Type")
                 httpBody = try JSONSerialization.data(withJSONObject: body)
             } catch {
-                throw CoreNetwork.Status.encodingError
+                throw CoreNetwork.NetworkError.encodingError
             }
         } else if let bodyObject {
             do {
                 setValue("application/json", forHTTPHeaderField: "Content-Type")
                 httpBody = try JSONEncoder().encode(bodyObject)
             } catch {
-                throw CoreNetwork.Status.encodingError
+                throw CoreNetwork.NetworkError.encodingError
             }
         }
     }

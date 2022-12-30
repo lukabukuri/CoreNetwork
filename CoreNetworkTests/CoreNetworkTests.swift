@@ -38,8 +38,8 @@ final class CoreNetworkTests: XCTestCase {
                                             files: [])
         
         MockURLProtocol.requestHandler =  { request in
-            guard let url = request.url else { throw CoreNetwork.Status.badURL }
-            guard let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "2.0", headerFields: nil) else { throw CoreNetwork.Status.couldNotMakeURLRequest }
+            guard let url = request.url else { throw CoreNetwork.NetworkError.badURL }
+            guard let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "2.0", headerFields: nil) else { throw CoreNetwork.NetworkError.couldNotMakeURLRequest }
             return (response, mockData)
         }
         
@@ -70,8 +70,8 @@ final class CoreNetworkTests: XCTestCase {
                                             body: .emptyBody)
         
         MockURLProtocol.requestHandler =  { request in
-            guard let url = request.url else { throw CoreNetwork.Status.badURL }
-            guard let response = HTTPURLResponse(url: url, statusCode: 401, httpVersion: "2.0", headerFields: nil) else { throw CoreNetwork.Status.couldNotMakeURLRequest }
+            guard let url = request.url else { throw CoreNetwork.NetworkError.badURL }
+            guard let response = HTTPURLResponse(url: url, statusCode: 401, httpVersion: "2.0", headerFields: nil) else { throw CoreNetwork.NetworkError.couldNotMakeURLRequest }
             return (response, mockData)
         }
         
@@ -81,7 +81,7 @@ final class CoreNetworkTests: XCTestCase {
         Task {
             await XCTAssertThrowsError(try await sut.request(endpoint: endpoint, type: Data.self),
                                        "Should throw networking error with status code 401") { error in
-                XCTAssertEqual(CoreNetwork.Status.networkError(statusCode: 401), error as? CoreNetwork.Status)
+                XCTAssertEqual(CoreNetwork.NetworkError.error(statusCode: 401), error as? CoreNetwork.NetworkError)
             }
             
             expectation.fulfill()
@@ -104,8 +104,8 @@ final class CoreNetworkTests: XCTestCase {
                                             body: .emptyBody)
         
         MockURLProtocol.requestHandler =  { request in
-            guard let url = request.url else { throw CoreNetwork.Status.badURL }
-            guard let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "2.0", headerFields: nil) else { throw CoreNetwork.Status.couldNotMakeURLRequest }
+            guard let url = request.url else { throw CoreNetwork.NetworkError.badURL }
+            guard let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "2.0", headerFields: nil) else { throw CoreNetwork.NetworkError.couldNotMakeURLRequest }
             return (response, mockData)
         }
         
@@ -115,7 +115,7 @@ final class CoreNetworkTests: XCTestCase {
         Task {
             await XCTAssertThrowsError(try await sut.request(endpoint: endpoint, type: String.self),
                                        "Should throw decoding error") { error in
-                XCTAssertEqual(CoreNetwork.Status.decodingError, error as? CoreNetwork.Status)
+                XCTAssertEqual(CoreNetwork.NetworkError.decodingError, error as? CoreNetwork.NetworkError)
             }
             
             expectation.fulfill()
@@ -138,8 +138,8 @@ final class CoreNetworkTests: XCTestCase {
                                             body: .emptyBody)
         
         MockURLProtocol.requestHandler =  { request in
-            guard let url = request.url else { throw CoreNetwork.Status.badURL }
-            guard let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "2.0", headerFields: nil) else { throw CoreNetwork.Status.couldNotMakeURLRequest }
+            guard let url = request.url else { throw CoreNetwork.NetworkError.badURL }
+            guard let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "2.0", headerFields: nil) else { throw CoreNetwork.NetworkError.couldNotMakeURLRequest }
             return (response, mockData)
         }
         
@@ -174,8 +174,8 @@ final class CoreNetworkTests: XCTestCase {
                                             body: .emptyBody)
         
         MockURLProtocol.requestHandler =  { request in
-            guard let url = request.url else { throw CoreNetwork.Status.badURL }
-            guard let response = HTTPURLResponse(url: url, statusCode: 401, httpVersion: "2.0", headerFields: nil) else { throw CoreNetwork.Status.couldNotMakeURLRequest }
+            guard let url = request.url else { throw CoreNetwork.NetworkError.badURL }
+            guard let response = HTTPURLResponse(url: url, statusCode: 401, httpVersion: "2.0", headerFields: nil) else { throw CoreNetwork.NetworkError.couldNotMakeURLRequest }
             return (response, mockData)
         }
         
@@ -188,7 +188,7 @@ final class CoreNetworkTests: XCTestCase {
             case .success:
                 XCTFail("Request was expected to fail")
             case .failure(let error):
-                XCTAssertEqual(error, CoreNetwork.Status.networkError(statusCode: 401))
+                XCTAssertEqual(error, CoreNetwork.NetworkError.error(statusCode: 401))
             }
             expectation.fulfill()
         }
@@ -210,8 +210,8 @@ final class CoreNetworkTests: XCTestCase {
                                             body: .emptyBody)
         
         MockURLProtocol.requestHandler =  { request in
-            guard let url = request.url else { throw CoreNetwork.Status.badURL }
-            guard let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "2.0", headerFields: nil) else { throw CoreNetwork.Status.couldNotMakeURLRequest }
+            guard let url = request.url else { throw CoreNetwork.NetworkError.badURL }
+            guard let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "2.0", headerFields: nil) else { throw CoreNetwork.NetworkError.couldNotMakeURLRequest }
             return (response, mockData)
         }
         
@@ -224,7 +224,7 @@ final class CoreNetworkTests: XCTestCase {
             case .success:
                 XCTFail("Request was expected to fail")
             case .failure(let error):
-                XCTAssertEqual(error, CoreNetwork.Status.decodingError)
+                XCTAssertEqual(error, CoreNetwork.NetworkError.decodingError)
             }
             expectation.fulfill()
         }
@@ -253,13 +253,13 @@ final class CoreNetworkTests: XCTestCase {
             // Then
             guard let url = request.url else {
                 XCTFail("Invalid URL passed to request")
-                throw CoreNetwork.Status.badURL
+                throw CoreNetwork.NetworkError.badURL
             }
             
             guard let query = request.url?.getQueries(),
-                  query == mockQuery else {
+                  query == mockQuery as? [String : String] else {
                 XCTFail("Invalid query attached to request")
-                throw CoreNetwork.Status.badURL
+                throw CoreNetwork.NetworkError.badURL
             }
             
             XCTAssertEqual(request.httpMethod, "POST", "Incorrect HTTP method set to request")
@@ -272,7 +272,7 @@ final class CoreNetworkTests: XCTestCase {
             }
             
             guard let httpURLResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "2.0", headerFields: nil) else {
-                throw CoreNetwork.Status.couldNotMakeURLRequest
+                throw CoreNetwork.NetworkError.couldNotMakeURLRequest
             }
             
             return (httpURLResponse, mockData)

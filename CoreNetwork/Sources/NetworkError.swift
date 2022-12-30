@@ -16,15 +16,15 @@ public extension CoreNetwork {
     ///
     /// ### Errors
     ///
-    /// - ``networkError(statusCode:)``
+    /// - ``error(_:statusCode:)``
     /// - ``badURL``
     /// - ``encodingError``
     /// - ``decodingError``
     /// - ``couldNotMakeURLRequest``
-    @frozen enum Status: Error, Equatable {
+    @frozen enum NetworkError: Error, Equatable {
         
         /// Network error with specific status code
-        case networkError(statusCode: Int)
+        case error(Data? = nil, statusCode: Int)
         
         /// URL can't be constructed from given components
         case badURL
@@ -38,7 +38,6 @@ public extension CoreNetwork {
         /// Failed to make a URLRequest
         case couldNotMakeURLRequest
         
-        case error(Data, statusCode: Int)
     }
     
 }

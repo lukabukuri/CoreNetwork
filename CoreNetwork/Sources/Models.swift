@@ -34,3 +34,8 @@ public struct MediaFile {
     }
     
 }
+
+public struct AnyResponse {
+    public var data: Data
+    public var response: URLResponse?
+}

@@ -11,7 +11,7 @@
 		8D596B5729264FA300FB02A1 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D596B5629264FA300FB02A1 /* URL+Extensions.swift */; };
 		8D596B592926638100FB02A1 /* XCTest+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D596B582926638000FB02A1 /* XCTest+Extensions.swift */; };
 		8D7CE3892927726F00606DD4 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7CE3882927726F00606DD4 /* Logger.swift */; };
-		8DB14B8C290FF2730098CDC7 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB14B8B290FF2730098CDC7 /* Status.swift */; };
+		8DB14B8C290FF2730098CDC7 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB14B8B290FF2730098CDC7 /* NetworkError.swift */; };
 		8DB14B902913AFBF0098CDC7 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB14B8F2913AFBF0098CDC7 /* Endpoint.swift */; };
 		AB177285292645880007F87E /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB177284292645880007F87E /* Models.swift */; };
 		AB184C422941DAFC0074D9B7 /* SSLPinningManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB184C412941DAFC0074D9B7 /* SSLPinningManager.swift */; };
@@ -46,7 +46,7 @@
 		8D596B5629264FA300FB02A1 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		8D596B582926638000FB02A1 /* XCTest+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTest+Extensions.swift"; sourceTree = "<group>"; };
 		8D7CE3882927726F00606DD4 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-		8DB14B8B290FF2730098CDC7 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		8DB14B8B290FF2730098CDC7 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		8DB14B8F2913AFBF0098CDC7 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		AB177284292645880007F87E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		AB184C412941DAFC0074D9B7 /* SSLPinningManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSLPinningManager.swift; sourceTree = "<group>"; };
@@ -96,7 +96,7 @@
 				AB8E51CE2922B984005A4079 /* URLParameters.swift */,
 				AB91B308290A7212009C62C4 /* HTTPMethod.swift */,
 				8DB14B8F2913AFBF0098CDC7 /* Endpoint.swift */,
-				8DB14B8B290FF2730098CDC7 /* Status.swift */,
+				8DB14B8B290FF2730098CDC7 /* NetworkError.swift */,
 				AB5C6A10291E47A300EF80A0 /* Connectivity.swift */,
 				AB46737329141A4100415E06 /* DTODecoder.swift */,
 				ABB69467292190D9008C7322 /* MockURLProtocol.swift */,
@@ -275,7 +275,7 @@
 				AB5C6A11291E47A300EF80A0 /* Connectivity.swift in Sources */,
 				ABAACF3629093042005BC049 /* CoreNetwork.docc in Sources */,
 				8D7CE3892927726F00606DD4 /* Logger.swift in Sources */,
-				8DB14B8C290FF2730098CDC7 /* Status.swift in Sources */,
+				8DB14B8C290FF2730098CDC7 /* NetworkError.swift in Sources */,
 				ABA26DAB292578C600646B5B /* Data+Extensions.swift in Sources */,
 				AB184C422941DAFC0074D9B7 /* SSLPinningManager.swift in Sources */,
 				8D2A33D0291BB3A300E3A1E4 /* String+Extensions.swift in Sources */,
