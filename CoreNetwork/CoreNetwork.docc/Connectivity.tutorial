@@ -1,0 +1,26 @@
+@Tutorial(time: 2) {
+    @Intro(title: "Connectivity") {
+        Helper class to detect whether internet connection is available.
+        
+        @Image(source: <#file#>, alt: "<#accessible description#>")
+    }
+    
+    @Section(title: "Monitoring Network Connection") {
+        @ContentAndMedia {
+        }
+        
+        @Steps {
+            @Step {
+                Create an instance of `Connectivity` in your class and use it's `didChange` callback to detect network connection changes.
+                
+                @Code(name: "MoviesViewController.swift", file: connectivity-01.swift)
+            }
+            
+            @Step {
+                By default polling time is set to 1 second, you can change it by passing custom value (in seconds) to initializer.
+                
+                @Code(name: "MoviesViewController.swift", file: connectivity-02.swift)
+            }
+        }
+    }
+}

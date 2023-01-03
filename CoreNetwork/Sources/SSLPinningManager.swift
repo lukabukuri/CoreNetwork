@@ -20,7 +20,7 @@ final public class SSLPinningManager {
     ///     - disposition—One of several constants that describes how the challenge should be handled.
     ///     - credential—The credential that should be used for authentication if disposition is `NSURLSessionAuthChallengeUseCredential`, otherwise NULL.
     static public func validate(publicKeys: String...,
-                                domain: String?,
+                                domain: String? = nil,
                                 challenge: URLAuthenticationChallenge,
                                 completionHandler: (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
          

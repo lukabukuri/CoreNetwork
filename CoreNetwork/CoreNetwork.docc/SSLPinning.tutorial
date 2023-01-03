@@ -1,0 +1,29 @@
+@Tutorial(time: 2) {
+    @Intro(title: "SSL Pinning") {
+        If your app sends or receives data over the network, it’s critical to preserve the privacy and integrity of a person’s information and protect it from data breaches and attacks. You should use the Transport Layer Security (TLS) protocol to protect content in transit and authenticate the server receiving the data. When you connect through TLS, the server provides a certificate or certificate chain to establish its identity. You can further limit the set of server certificates your app trusts by pinning their public-key identities in your app. Here’s how to get started.
+
+        
+        @Image(source: sslpinning.jpeg, alt: "SSL Pinning")
+    }
+    
+    @Section(title: "Public Key Pinning") {
+        @ContentAndMedia {
+        }
+        
+        @Steps {
+            @Step {
+                Use `sessionDidReceiveChallengeWithCompletion` property to receive URL authentication challenge
+                
+                @Code(name: "Network.swift", file: sslpinning-01.swift)
+            }
+            
+            @Step {
+                Now use `SSLPinningManager` to validate the received challenge using your public key.
+                
+                > Important: If you decide to disable SSL Pinning (not recommended), don't forget to call `completionHandler(.performDefaultHandling, nil)` in this closure. 
+                
+                @Code(name: "Network.swift", file: sslpinning-02.swift)
+            }
+        }
+    }
+}

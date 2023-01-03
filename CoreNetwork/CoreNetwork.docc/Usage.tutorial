@@ -1,0 +1,40 @@
+@Tutorial(time: 2) {
+    @Intro(title: "Usage") {
+        Create a network layer using the CoreNetwork framework
+        
+        @Image(source: <#file#>, alt: "<#accessible description#>")
+    }
+    
+    @Section(title: "Make a Network Call") {
+        @ContentAndMedia {
+        }
+        
+        @Steps {
+            @Step {
+                Create gateway class
+                
+                @Code(name: "Network.swift", file: usage-01.swift)
+            }
+            
+            @Step {
+                Add request function
+                
+                @Code(name: "Network.swift", file: usage-02.swift)
+            }
+            
+            @Step {
+                Build Endpoint object and make request
+                
+                @Code(name: "Network.swift", file: usage-03.swift)
+            }
+            
+            @Step {
+                Thats it! 🥳
+                
+                Now just use your gateway class to make requests.
+                
+                @Code(name: "MovieListServiceWorker.swift", file: usage-04.swift)
+            }
+        }
+    }
+}

@@ -1,0 +1,32 @@
+@Tutorials(name: "CoreNetwork") {
+    @Intro(title: "Meet CoreNetwork") {
+        Use CoreNetwork framework to fetch and return data to your app, download files, or upload data and files to remote locations.
+        
+        @Image(source: network.png, alt: "network earth.")
+    }
+    
+    @Chapter(name: "Usage") {
+        @Image(source: chapter1-slothcreatorEssentials.png, alt: "Usage")
+        
+        Create network layer using CoreNetwork framework.
+        
+        @TutorialReference(tutorial: "doc:Usage")
+    }
+    
+    @Chapter(name: "SSL Pinning") {
+        @Image(source: sslpinning.jpeg, alt: "SSL Pinning")
+        
+        If your app sends or receives data over the network, it’s critical to preserve the privacy and integrity of a person’s information and protect it from data breaches and attacks.
+        
+        @TutorialReference(tutorial: "doc:SSLPinning")
+    }
+    
+    
+    @Chapter(name: "Connectivity") {
+        @Image(source: sslpinning.jpeg, alt: "Connectivity")
+        
+        Helper class to detect whether internet connection is available.
+        
+        @TutorialReference(tutorial: "doc:Connectivity")
+    }
+}
