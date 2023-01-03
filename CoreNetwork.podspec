@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "CoreNetwork"
-  s.version          = "1.1.3"
+  s.version          = "1.1.4"
   s.summary          = "CoreNetwork - Network Layer Framework"
   s.homepage         = "https://github.com/lukabukuri/CoreNetwork"
   s.license          = 'Code is MIT, then custom font licenses.'
