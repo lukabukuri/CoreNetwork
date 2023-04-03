@@ -56,8 +56,16 @@ public extension CoreNetwork {
                 df.dateFormat = dateFormat
                 print("Request date:", df.string(from: Date()))
                 
-                print("HEADERS:", request.allHTTPHeaderFields?.description ?? "N/A")
-                print("BODY:", request.httpBody?.description ?? "N/A")
+                if let headers = request.allHTTPHeaderFields,
+                   let data = try? JSONSerialization.data(withJSONObject: headers, options: .prettyPrinted) {
+                    print("Request headers:\n\(NSString(data: data, encoding: String.Encoding.utf8.rawValue) ?? "N/A")")
+                }
+                
+                if let data = request.httpBody,
+                   let json = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed),
+                   let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted) {
+                    print("Request body:\n:\(NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue) ?? "N/A")")
+                }
             case .info:
                 print(urlDescription)
                 print(methodDescription)
@@ -96,9 +104,12 @@ public extension CoreNetwork {
                     print("Error:", error.localizedDescription)
                     return
                 }
-                print("Response Type:", response?.mimeType ?? "N/A")
-                if let data {
-                    print("Response JSON:\n", String(decoding: data, as: UTF8.self))
+                print("Response type:", response?.mimeType ?? "N/A")
+                
+                if let data,
+                   let json = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed),
+                   let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted) {
+                    print("Response JSON:\n\(NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue) ?? "N/A")")
                 }
             case .info:
                 print(urlDescription)

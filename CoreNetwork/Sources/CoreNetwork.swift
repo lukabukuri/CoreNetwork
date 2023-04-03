@@ -102,6 +102,7 @@ open class CoreNetwork {
     ///   - completion: Completion handler with `AnyResponse`type  for success and `NetworkError` as error type
     public func request(urlRequest: URLRequest,
                         completion: @escaping ((Result<AnyResponse, NetworkError>) -> Void) = { _ in }) {
+        self.logger?.log(urlRequest)
         self.urlSessionDataTask(urlRequest: urlRequest, completion: completion)
     }
     
