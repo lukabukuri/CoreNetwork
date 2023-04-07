@@ -62,7 +62,7 @@ public extension CoreNetwork {
                 }
                 
                 if let data = request.httpBody,
-                   let json = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed),
+                   let json = try? JSONSerialization.jsonObject(with: data),
                    let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted) {
                     print("Request body:\n:\(NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue) ?? "N/A")")
                 }
@@ -107,7 +107,7 @@ public extension CoreNetwork {
                 print("Response type:", response?.mimeType ?? "N/A")
                 
                 if let data,
-                   let json = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed),
+                   let json = try? JSONSerialization.jsonObject(with: data),
                    let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted) {
                     print("Response JSON:\n\(NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue) ?? "N/A")")
                 }
