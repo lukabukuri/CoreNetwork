@@ -81,7 +81,7 @@ open class CoreNetwork {
             case .success(let response):
                 DispatchQueue.main.async {
                     if let data = DTODecoder.decode(type: type, data: response.data) {
-                        completion(.success((data, response as? HTTPURLResponse)))
+                        completion(.success((data, response.response as? HTTPURLResponse)))
                     } else {
                         completion(.failure(.decodingError))
                     }
