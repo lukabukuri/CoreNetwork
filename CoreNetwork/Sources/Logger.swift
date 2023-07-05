@@ -110,6 +110,8 @@ public extension CoreNetwork {
                    let json = try? JSONSerialization.jsonObject(with: data),
                    let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted) {
                     print("Response JSON:\n\(NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue) ?? "N/A")")
+                } else if let data {
+                    print(NSString(data: data, encoding: String.Encoding.utf8.rawValue) ?? "N/A")
                 }
             case .info:
                 print(urlDescription)
