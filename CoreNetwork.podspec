@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "CoreNetwork"
-  s.version          = "1.1.9"
+  s.version          = "2.0.0"
   s.summary          = "CoreNetwork - Network Layer Framework"
   s.homepage         = "https://tfssrv.hq.tbc/DefaultCollection/TBC.Common.iOS/_git/CoreNetwork"
   s.license          = 'Code is MIT, then custom font licenses.'
