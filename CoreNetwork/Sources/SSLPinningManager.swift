@@ -20,16 +20,16 @@ final public class SSLPinningManager {
     ///     - disposition—One of several constants that describes how the challenge should be handled.
     ///     - credential—The credential that should be used for authentication if disposition is `NSURLSessionAuthChallengeUseCredential`, otherwise NULL.
     static public func validate(publicKeys: String...,
-                                domain: String? = nil,
+                                isDomainCheckEnabled: Bool,
                                 challenge: URLAuthenticationChallenge,
                                 completionHandler: (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
          
          guard let serverTrust = challenge.protectionSpace.serverTrust else {
              return completionHandler(.cancelAuthenticationChallenge, nil) }
          
-         if let domain = domain {
+         if isDomainCheckEnabled {
              let policies = NSMutableArray()
-             policies.add(SecPolicyCreateSSL(true, domain as CFString))
+             policies.add(SecPolicyCreateSSL(true, challenge.protectionSpace.host as CFString))
              SecTrustSetPolicies(serverTrust, policies)
          }
 
@@ -49,7 +49,7 @@ final public class SSLPinningManager {
              
              let serverPublicKey = (publicKeyData as Data).sha256Base64Encoded()
              if publicKeys.contains(serverPublicKey) {
-                 print("SSL Pin found for \(domain ?? "")")
+                 print("SSL Pinning is successful")
                  return completionHandler(.useCredential, URLCredential(trust: serverTrust))
              }
          }
