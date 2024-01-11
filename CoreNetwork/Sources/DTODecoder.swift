@@ -27,7 +27,7 @@ public struct DTODecoder {
             let result = try JSONDecoder().decode(T.self, from: data)
             return result
         } catch {
-            print(error.localizedDescription)
+            print("🔴 🔴 Model Parse Error", error)
             return nil
         }
     }
