@@ -52,7 +52,7 @@ open class CoreNetwork {
         
         let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
         
-        guard (200..<300).contains(statusCode) else { throw CoreNetwork.NetworkError.error(statusCode: statusCode) }
+        guard (200..<300).contains(statusCode) else { throw CoreNetwork.NetworkError.error(data, statusCode: statusCode) }
         
         guard let data = DTODecoder.decode(type: type, data: data) else { throw CoreNetwork.NetworkError.decodingError}
         
