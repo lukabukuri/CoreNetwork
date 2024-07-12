@@ -24,7 +24,7 @@ public extension CoreNetwork {
     @frozen enum NetworkError: Error, Equatable {
         
         /// Error with data and status code
-        case error(Data? = nil, statusCode: Int)
+        case error(Data? = nil, response: HTTPURLResponse? = nil, statusCode: Int)
         
         /// URL can't be constructed from given components
         case badURL

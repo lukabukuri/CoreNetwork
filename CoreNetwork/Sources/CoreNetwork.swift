@@ -40,8 +40,9 @@ open class CoreNetwork {
     ///
     /// - Throws: An error of type `CoreNetwork.NetworkError`
     /// - Returns: Object of generic type passed as a parameter
-    public func request<T>(endpoint: Endpoint,
-                         type: T.Type = EmptyData.self)
+    public func request<T>(
+        endpoint: Endpoint,
+        type: T.Type = EmptyData.self)
     async throws -> (T, HTTPURLResponse?) where T : Decodable {
         
         let urlRequest = try URLRequest(from: endpoint)
@@ -52,9 +53,15 @@ open class CoreNetwork {
         
         let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
         
-        guard (200..<300).contains(statusCode) else { throw CoreNetwork.NetworkError.error(data, statusCode: statusCode) }
-        
-        guard let data = DTODecoder.decode(type: type, data: data) else { throw CoreNetwork.NetworkError.decodingError}
+        guard (200..<300).contains(statusCode) else { throw CoreNetwork.NetworkError.error(data, response: response as? HTTPURLResponse, statusCode: statusCode) }
+
+        guard let data = type == EmptyData.self
+            ? EmptyData(data: data) as? T
+            : DTODecoder.decode(type: type, data: data)
+        else {
+            throw CoreNetwork.NetworkError.decodingError
+        }
+
         
         return (data, response as? HTTPURLResponse)
     }
@@ -68,8 +75,8 @@ open class CoreNetwork {
     ///     - Result with associated type: generict type for success and `Status` error type for failure
     @available(*, deprecated, message: "Use async/await request instead")
     public func request<T>(endpoint: Endpoint,
-                         type: T.Type = EmptyData.self,
-                         completion: @escaping ((Result<(T, HTTPURLResponse?), NetworkError>) -> Void) = { _ in }) where T : Decodable {
+                           type: T.Type = EmptyData.self,
+                           completion: @escaping ((Result<(T, HTTPURLResponse?), NetworkError>) -> Void) = { _ in }) where T : Decodable {
         
         guard let urlRequest = try? URLRequest(from: endpoint) else {
             return completion(.failure(.couldNotMakeURLRequest)) }
