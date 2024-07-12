@@ -136,7 +136,7 @@ open class CoreNetwork {
             
             guard (200..<300).contains(statusCode) else {
                 DispatchQueue.main.async {
-                    completion(.failure(.error(data, statusCode: statusCode)))
+                    completion(.failure(.error(data, response: response as? HTTPURLResponse, statusCode: statusCode)))
                 }
                 return
             }
