@@ -44,7 +44,6 @@ public struct MediaFile {
     /// - Parameters:
     ///   - key: File name
     ///   - data: File data
-    ///   - name: File name with extension
     ///   - type: File type (such as jpeg, gif, pdf...)
     public init(key: String, data: Data, name: String? = nil, type: String? = nil) {
         self.key = key
