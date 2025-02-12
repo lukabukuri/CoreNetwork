@@ -22,7 +22,15 @@ extension URLRequest {
         
         self.init(url: url)
         
-        try setParameters(headers: endpoint.headers, body: endpoint.body, bodyObject: endpoint.bodyObject, method: endpoint.method, files: endpoint.files)
+        try setParameters(
+            headers: endpoint.headers,
+            body: endpoint.body,
+            bodyObject: endpoint.bodyObject,
+            method: endpoint.method,
+            files: endpoint.files,
+            cachePolicy: endpoint.cachePolicy,
+            timeoutInterval: endpoint.timeoutInterval
+        )
     }
     
     /// Sets given parameters to URLRequest
@@ -37,9 +45,20 @@ extension URLRequest {
                                         body: CoreNetwork.Body,
                                         bodyObject: Encodable?,
                                         method: CoreNetwork.HTTPMethod,
-                                        files: [MediaFile]?) throws {
+                                        files: [MediaFile]?,
+                                        cachePolicy: URLRequest.CachePolicy?,
+                                        timeoutInterval: TimeInterval?
+    ) throws {
         
         httpMethod = method.rawValue
+        
+        if let cachePolicy {
+            self.cachePolicy = cachePolicy
+        }
+        
+        if let timeoutInterval {
+            self.timeoutInterval = timeoutInterval
+        }
         
         for (headerField, headerValue) in headers {
             setValue(headerValue, forHTTPHeaderField: headerField)
