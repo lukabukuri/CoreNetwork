@@ -28,16 +28,16 @@ public struct EmptyData: Decodable {
 public struct MediaFile {
     
     /// File name
-    var key: String
+    public var key: String
     
     /// File data
-    var data: Data
+    public var data: Data
     
     /// File name with extension
-    var name: String?
+    public var name: String?
     
     /// File type (such as jpeg, gif, pdf...)
-    var type: String?
+    public var type: String?
     
     /// Creates an instance with given parameters
     ///

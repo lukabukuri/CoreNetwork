@@ -47,17 +47,25 @@ public extension CoreNetwork {
         /// - A dictionary of the data sent as the message body of a request, such as for an HTTP POST request
         var body: Body = .emptyBody
         
-        
         /// Body Object
         ///
         /// - Encodable object for message body of a request, such as for an HTTP POST request
         var bodyObject: Encodable?
         
-        
         /// Files
         ///
         /// - Array of media files (such as jpeg, gif, pdf...)
         var files: [MediaFile]?
+        
+        /// Cache Policy
+        ///
+        /// - request’s cache policy
+        var cachePolicy: URLRequest.CachePolicy?
+        
+        /// Timeout Interval
+        ///
+        /// - The timeout interval of the request
+        var timeoutInterval: TimeInterval?
         
         /// Creates an instance with given components
         ///
@@ -70,8 +78,22 @@ public extension CoreNetwork {
         ///   - headers: A dictionary containing the HTTP header fields for a request
         ///   - body: A dictionary of the data sent as the message body of a request, such as for an HTTP POST request
         ///   - bodyObject: Encodable object for message body of a request, such as for an HTTP POST request
-        ///   - files: rray of media files (such as jpeg, gif, pdf...)
-        public init(scheme: Scheme = .defaultScheme, host: String, path: String, query: Query, method: HTTPMethod, headers: Headers, body: Body, bodyObject: Encodable? = nil, files: [MediaFile]? = nil) {
+        ///   - files: array of media files (such as jpeg, gif, pdf...)
+        ///   - cachePolicy: request’s cache policy
+        ///   - timeoutInterval: The timeout interval of the request
+        public init(
+            scheme: Scheme = .defaultScheme,
+            host: String,
+            path: String,
+            query: Query,
+            method: HTTPMethod,
+            headers: Headers,
+            body: Body,
+            bodyObject: Encodable? = nil,
+            files: [MediaFile]? = nil,
+            cachePolicy: URLRequest.CachePolicy? = nil,
+            timeoutInterval: TimeInterval? = nil
+        ) {
             self.scheme = scheme
             self.host = host
             self.path = path
@@ -81,6 +103,8 @@ public extension CoreNetwork {
             self.body = body
             self.bodyObject = bodyObject
             self.files = files
+            self.cachePolicy = cachePolicy
+            self.timeoutInterval = timeoutInterval
         }
     }
     
