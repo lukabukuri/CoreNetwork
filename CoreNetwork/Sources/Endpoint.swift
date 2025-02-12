@@ -52,9 +52,7 @@ public extension CoreNetwork {
         /// - Encodable object for message body of a request, such as for an HTTP POST request
         var bodyObject: Encodable?
         
-        /// Files
-        ///
-        /// - Array of media files (such as jpeg, gif, pdf...)
+
         var files: [MediaFile]?
         
         /// Cache Policy
