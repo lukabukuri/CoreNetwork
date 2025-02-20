@@ -44,8 +44,14 @@ open class CoreNetwork {
         endpoint: Endpoint,
         type: T.Type = EmptyData.self)
     async throws -> (T, HTTPURLResponse?) where T : Decodable {
-        
         let urlRequest = try URLRequest(from: endpoint)
+        return try await request(urlRequest: urlRequest, type: type)
+    }
+    
+    public func request<T>(
+        urlRequest: URLRequest,
+        type: T.Type = EmptyData.self)
+    async throws -> (T, HTTPURLResponse?) where T : Decodable {
         logger?.log(urlRequest)
         
         let (data, response) = try await urlSession.data(for: urlRequest)
@@ -62,7 +68,6 @@ open class CoreNetwork {
             throw CoreNetwork.NetworkError.decodingError
         }
 
-        
         return (data, response as? HTTPURLResponse)
     }
     

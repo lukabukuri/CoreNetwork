@@ -25,6 +25,8 @@ let package = Package(
             path: "CoreNetwork/Sources"),
         .testTarget(
             name: "CoreNetworkTests",
-            dependencies: ["CoreNetwork"]),
+            dependencies: ["CoreNetwork"],
+            path: "CoreNetworkTests"
+        ),
     ]
 )
