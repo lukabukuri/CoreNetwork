@@ -85,38 +85,41 @@ public extension CoreNetwork {
                 customResponseLogger?(response, data, error)
                 return
             }
-            
-            let urlDescription = "URL: \(response?.url?.absoluteString ?? "N/A")"
-            let statusCodeDescription = "Status code: \(response?.statusCode ?? -1)"
-            
+
             switch logLevel {
             case .off:
                 return
             case .verbose, .debug:
-                print(urlDescription)
-                print(statusCodeDescription)
-                
-                let df = DateFormatter()
-                df.dateFormat = dateFormat
-                print("Response date:", df.string(from: Date()))
-                
-                if let error {
-                    print("Error:", error.localizedDescription)
-                    return
-                }
-                print("Response type:", response?.mimeType ?? "N/A")
-                
-                if let data,
-                   let json = try? JSONSerialization.jsonObject(with: data),
-                   let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted) {
-                    print("Response JSON:\n\(NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue) ?? "N/A")")
-                } else if let data {
-                    print(NSString(data: data, encoding: String.Encoding.utf8.rawValue) ?? "N/A")
-                }
+                logResponse(response: response)
+                logError(error: error)
+                logData(data: data)
             case .info:
-                print(urlDescription)
-                print(statusCodeDescription)
+                print("URL: \(response?.url?.absoluteString ?? "N/A")")
+                print("Status code: \(response?.statusCode ?? -1)")
             }
+        }
+        
+        func logResponse(response: HTTPURLResponse?) {
+            print("URL: \(response?.url?.absoluteString ?? "N/A")")
+            print("Status code: \(response?.statusCode ?? -1)")
+            let df = DateFormatter()
+            df.dateFormat = dateFormat
+            print("Response date:", df.string(from: Date()))
+            print("Response type:", response?.mimeType ?? "N/A")
+        }
+        
+        func logData(data: Data?) {
+            if let data,
+               let json = try? JSONSerialization.jsonObject(with: data),
+               let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted) {
+                print("Response JSON:\n\(NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue) ?? "N/A")")
+            } else if let data {
+                print(NSString(data: data, encoding: String.Encoding.utf8.rawValue) ?? "N/A")
+            }
+        }
+        
+        func logError(error: Error?) {
+            print("Error:", error?.localizedDescription)
         }
         
         /// Evaluates if url matches given predicates

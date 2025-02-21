@@ -29,6 +29,10 @@
 		ABAACF4229093043005BC049 /* CoreNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = ABAACF3429093042005BC049 /* CoreNetwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ABAACF4C290938B0005BC049 /* CoreNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAACF4B290938B0005BC049 /* CoreNetwork.swift */; };
 		ABB69468292190D9008C7322 /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB69467292190D9008C7322 /* MockURLProtocol.swift */; };
+		ABDF86D42D67C93A00044FD6 /* NetworkTransactionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDF86D32D67C93A00044FD6 /* NetworkTransactionDelegate.swift */; };
+		ABF7A1632D68793300ECAE95 /* HTTPInterceptorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF7A1622D68793300ECAE95 /* HTTPInterceptorMock.swift */; };
+		ABF7A1652D687A0600ECAE95 /* HTTPInterceptorMockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF7A1642D687A0600ECAE95 /* HTTPInterceptorMockManager.swift */; };
+		ABF7A1672D687A2900ECAE95 /* HTTPInterceptorURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF7A1662D687A2900ECAE95 /* HTTPInterceptorURLProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +70,10 @@
 		ABAACF4029093043005BC049 /* CoreNetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreNetworkTests.swift; sourceTree = "<group>"; };
 		ABAACF4B290938B0005BC049 /* CoreNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreNetwork.swift; sourceTree = "<group>"; };
 		ABB69467292190D9008C7322 /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
+		ABDF86D32D67C93A00044FD6 /* NetworkTransactionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTransactionDelegate.swift; sourceTree = "<group>"; };
+		ABF7A1622D68793300ECAE95 /* HTTPInterceptorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPInterceptorMock.swift; sourceTree = "<group>"; };
+		ABF7A1642D687A0600ECAE95 /* HTTPInterceptorMockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPInterceptorMockManager.swift; sourceTree = "<group>"; };
+		ABF7A1662D687A2900ECAE95 /* HTTPInterceptorURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPInterceptorURLProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +98,7 @@
 		AB2D22BA291CF55600F39601 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				ABDF86D22D67C90B00044FD6 /* Interceptor */,
 				AB91B314290A9634009C62C4 /* Extensions */,
 				ABAACF4B290938B0005BC049 /* CoreNetwork.swift */,
 				AB8E51D02922C5CD005A4079 /* SessionDelegate.swift */,
@@ -103,6 +112,7 @@
 				AB177284292645880007F87E /* Models.swift */,
 				8D7CE3882927726F00606DD4 /* Logger.swift */,
 				AB184C412941DAFC0074D9B7 /* SSLPinningManager.swift */,
+				ABDF86D32D67C93A00044FD6 /* NetworkTransactionDelegate.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -155,6 +165,24 @@
 				8D596B582926638000FB02A1 /* XCTest+Extensions.swift */,
 			);
 			path = CoreNetworkTests;
+			sourceTree = "<group>";
+		};
+		ABDF86D22D67C90B00044FD6 /* Interceptor */ = {
+			isa = PBXGroup;
+			children = (
+				ABF7A1642D687A0600ECAE95 /* HTTPInterceptorMockManager.swift */,
+				ABF7A1662D687A2900ECAE95 /* HTTPInterceptorURLProtocol.swift */,
+				ABDF86D52D67D3CF00044FD6 /* Models */,
+			);
+			path = Interceptor;
+			sourceTree = "<group>";
+		};
+		ABDF86D52D67D3CF00044FD6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				ABF7A1622D68793300ECAE95 /* HTTPInterceptorMock.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,6 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABDF86D42D67C93A00044FD6 /* NetworkTransactionDelegate.swift in Sources */,
 				AB46737429141A4100415E06 /* DTODecoder.swift in Sources */,
 				AB8E51CF2922B984005A4079 /* URLParameters.swift in Sources */,
 				8DB14B902913AFBF0098CDC7 /* Endpoint.swift in Sources */,
@@ -274,7 +303,9 @@
 				8D596B5729264FA300FB02A1 /* URL+Extensions.swift in Sources */,
 				AB5C6A11291E47A300EF80A0 /* Connectivity.swift in Sources */,
 				ABAACF3629093042005BC049 /* CoreNetwork.docc in Sources */,
+				ABF7A1632D68793300ECAE95 /* HTTPInterceptorMock.swift in Sources */,
 				8D7CE3892927726F00606DD4 /* Logger.swift in Sources */,
+				ABF7A1652D687A0600ECAE95 /* HTTPInterceptorMockManager.swift in Sources */,
 				8DB14B8C290FF2730098CDC7 /* NetworkError.swift in Sources */,
 				ABA26DAB292578C600646B5B /* Data+Extensions.swift in Sources */,
 				AB184C422941DAFC0074D9B7 /* SSLPinningManager.swift in Sources */,
@@ -282,6 +313,7 @@
 				ABB69468292190D9008C7322 /* MockURLProtocol.swift in Sources */,
 				ABAACF4C290938B0005BC049 /* CoreNetwork.swift in Sources */,
 				AB91B316290A9690009C62C4 /* URLRequest+Extensions.swift in Sources */,
+				ABF7A1672D687A2900ECAE95 /* HTTPInterceptorURLProtocol.swift in Sources */,
 				AB91B309290A7212009C62C4 /* HTTPMethod.swift in Sources */,
 				AB177285292645880007F87E /* Models.swift in Sources */,
 				AB4815BE293FEE0F004CC835 /* URLSession+Extension.swift in Sources */,

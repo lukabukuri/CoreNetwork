@@ -19,6 +19,9 @@ open class CoreNetwork {
     /// Logger
     private var logger: Logger?
     
+    /// Network transaction delegate
+    private weak var transactionDelegate: NetworkTransactionDelegate?
+    
     /// Creates and initializes an instance and with given URLSessionConfiguration and ``SessionDelegate``
     ///
     /// - Parameters:
@@ -52,10 +55,21 @@ open class CoreNetwork {
         urlRequest: URLRequest,
         type: T.Type = EmptyData.self)
     async throws -> (T, HTTPURLResponse?) where T : Decodable {
-        logger?.log(urlRequest)
         
-        let (data, response) = try await urlSession.data(for: urlRequest)
+        logger?.log(urlRequest)
+        transactionDelegate?.didCreateRequest(request: urlRequest)
+        let data: Data
+        let response: URLResponse
+        
+        do {
+            (data, response) = try await urlSession.data(for: urlRequest)
+        } catch {
+            transactionDelegate?.didFailWithError(request: urlRequest, error: error)
+            throw error
+        }
+        
         logger?.log(response as? HTTPURLResponse, data: data, error: nil)
+        transactionDelegate?.didReceiveResponse(request: urlRequest, data: data, response: response as? HTTPURLResponse)
         
         let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
         
@@ -127,26 +141,31 @@ open class CoreNetwork {
     private func urlSessionDataTask(urlRequest: URLRequest,
                                     completion: @escaping ((Result<AnyResponse, NetworkError>) -> Void) = { _ in }) {
         
+        transactionDelegate?.didCreateRequest(request: urlRequest)
+        
         urlSession.dataTask(with: urlRequest) { [weak self] data, response, error in
             self?.logger?.log(response as? HTTPURLResponse, data: data, error: error)
             
             let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
             
             guard error == nil, let data else {
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [weak self] in
+                    self?.transactionDelegate?.didFailWithError(request: urlRequest, error: error)
                     completion(.failure(.error(statusCode: statusCode)))
                 }
                 return
             }
             
             guard (200..<300).contains(statusCode) else {
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [weak self] in
+                    self?.transactionDelegate?.didReceiveResponse(request: urlRequest, data: data, response: response as? HTTPURLResponse)
                     completion(.failure(.error(data, response: response as? HTTPURLResponse, statusCode: statusCode)))
                 }
                 return
             }
             
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                self?.transactionDelegate?.didReceiveResponse(request: urlRequest, data: data, response: response as? HTTPURLResponse)
                 completion(.success(.init(data: data, response: response)))
             }
         }.resume()
@@ -166,5 +185,9 @@ open class CoreNetwork {
     public func setLogginig(level: Logger.Level) {
         self.logger = Logger()
         self.logger?.logLevel = level
+    }
+    
+    public func setTransactionDelegate(transactionDelegate: NetworkTransactionDelegate?) {
+        self.transactionDelegate = transactionDelegate
     }
 }
