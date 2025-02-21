@@ -7,12 +7,12 @@
 
 import Foundation
 
-protocol NetworkTransactionDelegate: AnyObject {
+public protocol NetworkTransactionDelegate: AnyObject {
     func didReceiveResponse(request: URLRequest?, data: Data, response: HTTPURLResponse?)
     func didFailWithError(request: URLRequest?, error: Error?)
     func didCreateRequest(request: URLRequest?)
 }
 
-extension NetworkTransactionDelegate {
+public extension NetworkTransactionDelegate {
     func didCreateRequest(request: URLRequest?) { }
 }
