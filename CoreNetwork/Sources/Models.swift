@@ -63,3 +63,17 @@ public struct AnyResponse {
     /// An object that provides response metadata
     public var response: URLResponse?
 }
+
+extension AnyResponse {
+    /// jsonObject from data
+    public var jsonObject: [String: Any]? {
+        try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+    }
+}
+
+extension Data {
+    /// jsonObject from data
+    public var jsonObject: [String: Any]? {
+        try? JSONSerialization.jsonObject(with: self) as? [String: Any]
+    }
+}

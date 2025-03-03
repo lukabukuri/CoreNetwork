@@ -187,7 +187,7 @@ open class CoreNetwork {
         self.logger?.logLevel = level
     }
     
-    public func setTransactionDelegate(transactionDelegate: NetworkTransactionDelegate?) {
+    public func setTransactionDelegate(transactionDelegate: NetworkTransactionDelegate? = NetworkTransactionHandler.shared) {
         self.transactionDelegate = transactionDelegate
     }
 }

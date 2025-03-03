@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "CoreNetwork",
-    platforms: [.iOS("13.0")],
+    platforms: [.iOS("15.0")],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
@@ -14,14 +14,18 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
+         .package(url: "https://github.com/dwarvesf/CodeViewer.git", .upToNextMajor(from: "1.2.4")),
+         .package(url: "https://github.com/ZeeZide/CodeEditor.git", .upToNextMajor(from: "1.2.6")),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "CoreNetwork",
-            dependencies: [],
+            dependencies: [
+                .product(name: "CodeViewer", package: "CodeViewer.swift"),
+                .product(name: "CodeEditor", package: "CodeEditor.swift")
+            ],
             path: "CoreNetwork/Sources"),
         .testTarget(
             name: "CoreNetworkTests",
