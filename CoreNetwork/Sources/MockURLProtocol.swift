@@ -25,16 +25,14 @@ final public class MockURLProtocol: URLProtocol {
     }
     
     public override func startLoading() {
-        guard let url = request.url?.path else {
+        guard let url = request.url else {
             fatalError("Request URL is missing.")
         }
         
         // Dispatch to a background queue to handle the request concurrently.
         DispatchQueue.global().async {
             MockURLProtocol.handlerQueue.sync {
-                guard let handler = MockURLProtocol.requestHandlers[url] else {
-                    fatalError("Handler for \(url) is unavailable.")
-                }
+                let handler = MockURLProtocol.requestHandlers[url.path] ?? MockURLProtocol.defaultRequestHandler(for: url)
                 
                 do {
                     // Call handler with the received request and capture the response and data.
@@ -55,6 +53,19 @@ final public class MockURLProtocol: URLProtocol {
                     self.client?.urlProtocol(self, didFailWithError: error)
                 }
             }
+        }
+    }
+    
+    private static func defaultRequestHandler(for url: URL) -> (URLRequest) throws -> (HTTPURLResponse, Data?) {
+        { _ in
+            let response = HTTPURLResponse(
+                url: url,
+                statusCode: 418,
+                httpVersion: nil,
+                headerFields: nil
+            ) ?? HTTPURLResponse()
+            print("Request handler for \(url) is unavailable.")
+            return (response, nil)
         }
     }
     
