@@ -32,7 +32,7 @@ final public class MockURLProtocol: URLProtocol {
         // Dispatch to a background queue to handle the request concurrently.
         DispatchQueue.global().async {
             MockURLProtocol.handlerQueue.sync {
-                let handler = MockURLProtocol.requestHandlers[url.path] ?? MockURLProtocol.defaultRequestHandler(for: url)
+                let handler = MockURLProtocol.requestHandlers[url.path] ?? MockURLProtocol.unavailableResponse(for: url)
                 
                 do {
                     // Call handler with the received request and capture the response and data.
@@ -56,7 +56,7 @@ final public class MockURLProtocol: URLProtocol {
         }
     }
     
-    private static func defaultRequestHandler(for url: URL) -> (URLRequest) throws -> (HTTPURLResponse, Data?) {
+    private static func unavailableResponse(for url: URL) -> (URLRequest) throws -> (HTTPURLResponse, Data?) {
         { _ in
             let response = HTTPURLResponse(
                 url: url,
