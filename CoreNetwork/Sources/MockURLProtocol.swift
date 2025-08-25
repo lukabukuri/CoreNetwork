@@ -25,6 +25,7 @@ final public class MockURLProtocol: URLProtocol {
     }
     
     public override func startLoading() {
+        let testIDSuffix = Self.testIDSuffix(for: request)
         guard let url = request.url else {
             fatalError("Request URL is missing.")
         }
@@ -32,7 +33,7 @@ final public class MockURLProtocol: URLProtocol {
         // Dispatch to a background queue to handle the request concurrently.
         DispatchQueue.global().async {
             MockURLProtocol.handlerQueue.sync {
-                let handler = MockURLProtocol.requestHandlers[url.path] ?? MockURLProtocol.unavailableResponse(for: url)
+                let handler = Self.requestHandlers[url.path + testIDSuffix] ?? Self.unavailableResponse(for: url)
                 
                 do {
                     // Call handler with the received request and capture the response and data.
@@ -69,14 +70,30 @@ final public class MockURLProtocol: URLProtocol {
         }
     }
     
+    static func testIDSuffix(for request: URLRequest) -> String {
+        testIDSuffix(for: request.value(forHTTPHeaderField: "testID"))
+    }
+    
+    static func testIDSuffix(for testID: String?) -> String {
+        if let testID {
+            return "_" + testID
+        } else {
+            return ""
+        }
+    }
+    
     public override func stopLoading() {
         // This is called if the request gets canceled or completed.
     }
     
     /// Sets the request handler for a specific URL.
-    public static func setRequestHandler(for url: String, handler: @escaping (URLRequest) throws -> (HTTPURLResponse, Data?)) {
+    public static func setRequestHandler(
+        for url: String,
+        testID: String? = nil,
+        handler: @escaping (URLRequest) throws -> (HTTPURLResponse, Data?)
+    ) {
         handlerQueue.sync {
-            requestHandlers[url] = handler
+            requestHandlers[url + testIDSuffix(for: testID)] = handler
         }
     }
     
@@ -87,4 +104,3 @@ final public class MockURLProtocol: URLProtocol {
         }
     }
 }
-
